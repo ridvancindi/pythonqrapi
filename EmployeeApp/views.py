@@ -1,63 +1,65 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
-
-from EmployeeApp.models import Departments,Employees
-from EmployeeApp.serializers import DepartmentSerializer,EmployeeSerializer
-
-from django.core.files.storage import default_storage
-
-# Create your views here.
+from rest_framework import status
+from EmployeeApp.forms import *
+from EmployeeApp.models import *
+from EmployeeApp.serializers import *
+from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response  # Import this for Response
+from rest_framework.viewsets import GenericViewSet
 
 @csrf_exempt
-def departmentApi(request,id=0):
+def CategoryApi(request,restorant_id):
     if request.method=='GET':
-        departments = Departments.objects.all()
-        departments_serializer=DepartmentSerializer(departments,many=True)
-        return JsonResponse(departments_serializer.data,safe=False)
-    elif request.method=='POST':
-        department_data=JSONParser().parse(request)
-        departments_serializer=DepartmentSerializer(data=department_data)
-        if departments_serializer.is_valid():
-            departments_serializer.save()
-            return JsonResponse("Added Successfully",safe=False)
-        return JsonResponse("Failed to Add",safe=False)
-    elif request.method=='PUT':
-        department_data=JSONParser().parse(request)
-        department=Departments.objects.get(DepartmentId=department_data['DepartmentId'])
-        departments_serializer=DepartmentSerializer(department,data=department_data)
-        if departments_serializer.is_valid():
-            departments_serializer.save()
-            return JsonResponse("Updated Successfully",safe=False)
-        return JsonResponse("Failed to Update")
+        category = Category.objects.filter(restorant_id=restorant_id)
+        category_serializer=CategorySerializer(category,many=True)
+        return JsonResponse(category_serializer.data,safe=False)
     elif request.method=='DELETE':
-        department=Departments.objects.get(DepartmentId=id)
+        department=Category.objects.get(DepartmentId=id)
         department.delete()
         return JsonResponse("Deleted Successfully",safe=False)
 
 @csrf_exempt
-def employeeApi(request,id=0):
+def RestorantApi(request,res_code):
     if request.method=='GET':
-        employees = Employees.objects.all()
-        employees_serializer=EmployeeSerializer(employees,many=True)
-        return JsonResponse(employees_serializer.data,safe=False)
-    elif request.method=='POST':
-        employee_data=JSONParser().parse(request)
-        employees_serializer=EmployeeSerializer(data=employee_data)
-        if employees_serializer.is_valid():
-            employees_serializer.save()
-            return JsonResponse("Added Successfully",safe=False)
-        return JsonResponse("Failed to Add",safe=False)
-    elif request.method=='PUT':
-        employee_data=JSONParser().parse(request)
-        employee=Employees.objects.get(EmployeeId=employee_data['EmployeeId'])
-        employees_serializer=EmployeeSerializer(employee,data=employee_data)
-        if employees_serializer.is_valid():
-            employees_serializer.save()
-            return JsonResponse("Updated Successfully",safe=False)
-        return JsonResponse("Failed to Update")
+        category = Category.objects.filter(restorant_id=res_code)
+        category_serializer=CategorySerializer(category,many=True)
+        restorant = Restorant.objects.filter(rest_Code=res_code)
+        restorant_serializer=RestorantSerializer(restorant,many=True)
+        return JsonResponse(restorant_serializer.data,safe=False)
     elif request.method=='DELETE':
-        employee=Employees.objects.get(EmployeeId=id)
-        employee.delete()
+        album=Restorant.objects.get(EmplyoeeId=id)
+        album.delete()
         return JsonResponse("Deleted Successfully",safe=False)
+@csrf_exempt
+def ProductApi(request,id,cat_id):
+    if request.method=='GET':
+        restorant = Product.objects.filter(category=cat_id,restorant_id=id)
+        restorant_serializer=ProductSerializer(restorant,many=True)
+        return JsonResponse(restorant_serializer.data,safe=False)
+    elif request.method=='DELETE':
+        album=ProductSerializer.objects.get(EmplyoeeId=id)
+        album.delete()
+        return JsonResponse("Deleted Successfully",safe=False)
+def new_product(request,id):
+    if request.method == 'POST':
+        form = ProductForm(id)
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.user = request.user
+            product.save()
+            return redirect('products_list')
+    else:
+        form = ProductForm(id)
+    return render(request, 'expenses.html', {'form': form})
+class MeMixin:
+    @action(methods=['get'], detail=False)
+    def me(self, request):
+        serializer = self.get_serializer_class()
+        data = serializer(
+            **self.get_me_config()
+        ).data
+        return Response(data, status=status.HTTP_200_OK)
+

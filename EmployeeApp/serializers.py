@@ -1,12 +1,21 @@
+from itertools import product
 from rest_framework import serializers
-from EmployeeApp.models import Departments,Employees
+from EmployeeApp.models import *
 
-class DepartmentSerializer(serializers.ModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
     class Meta:
-        model=Departments 
-        fields=('DepartmentId','DepartmentName')
+        model = Product
+        fields = ['name', 'product_Img']
 
-class EmployeeSerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
+    product = ProductSerializer(many=True, read_only=True)
     class Meta:
-        model=Employees 
-        fields=('EmployeeId','EmployeeName','Department','DateOfJoining','PhotoFileName')
+        model = Category
+        fields = ['name','rest_Code','product']
+
+class RestorantSerializer(serializers.ModelSerializer):
+    category = CategorySerializer(many=True, read_only=True)
+    class Meta:
+        model = Restorant
+        fields = (['rest_name' , 'rest_createDate' , 'rest_Phone' , 'rest_Code' , 'category'])
+    

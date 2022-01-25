@@ -15,11 +15,12 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,re_path
 
-from django.conf.urls import url,include
+from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^',include('EmployeeApp.urls'))
+    re_path(r'^',include('EmployeeApp.urls')),
+    path('chaining/', include('smart_selects.urls')),
 ]

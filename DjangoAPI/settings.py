@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'EmployeeApp.apps.EmployeeappConfig'
+    'EmployeeApp.apps.EmployeeappConfig',
+    'crispy_forms',
+    'smart_selects',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -82,15 +84,8 @@ WSGI_APPLICATION = 'DjangoAPI.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'mytestdb',
-        'USER' : "ridvan",
-        "PASSWORD" : "00473306",
-        'HOST' : 'localhost',
-        'OPTIONS' : {
-            'driver' : 'ODBC Driver 17 for SQL Server',
-            'isolation_level' : 'READ UNCOMMITTED'
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -117,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'tr-TR'
 
 TIME_ZONE = 'UTC'
 
@@ -126,7 +121,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
+JQUERY_URL = False
+USE_DJANGO_JQUERY = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/

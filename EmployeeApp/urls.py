@@ -1,12 +1,13 @@
-from django.conf.urls import url
+
+from django.db import router
 from EmployeeApp import views
-
-
+from django.urls import re_path
+from rest_framework.authtoken.views import obtain_auth_token
 urlpatterns=[
-    url(r'^department$',views.departmentApi),
-    url(r'^department/([0-9]+)$',views.departmentApi),
-
-    url(r'^employee$',views.employeeApi),
-    url(r'^employee/([0-9]+)$',views.employeeApi),
+    re_path(r'^restorantApi$',views.RestorantApi),
+    re_path(r'^restorantApi/([0-9]+)$',views.RestorantApi),
+    re_path(r'^categoryApi$',views.CategoryApi),
+    re_path(r'^categoryApi/([0-9]+)$',views.CategoryApi),
+    re_path(r'productApi/([0-9]+)/([0-9]+)$',views.ProductApi),
 
 ]

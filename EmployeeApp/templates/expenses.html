@@ -1,0 +1,19 @@
+
+{% load crispy_forms_tags %}
+{% block body %}
+<div class="container">
+<div class="row" style="margin-top:100px;">
+    <div class="col-md-6 offset-md-3">
+        <h3>Harcamalar</h3>
+        <hr>
+        <form method = "post">
+            {% csrf_token %}
+            
+           {{form|crispy}}
+            <br>
+            <button type = "submit" class = "btn btn-danger">Borç Ekle</button>
+        </form>
+    </div>
+  </div>
+  </div>
+{% endblock body %}
