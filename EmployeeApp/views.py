@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.csrf import csrf_exempt
 from django.http.response import JsonResponse
 from rest_framework import status
@@ -43,23 +43,20 @@ def ProductApi(request,id,cat_id):
         album=ProductSerializer.objects.get(EmplyoeeId=id)
         album.delete()
         return JsonResponse("Deleted Successfully",safe=False)
-def new_product(request,id):
-    if request.method == 'POST':
+def type_modele_new(request,id):
+    if request.method == "POST":
         form = ProductForm(id)
         if form.is_valid():
-            product = form.save(commit=False)
-            product.user = request.user
-            product.save()
-            return redirect('products_list')
-    else:
-        form = ProductForm(id)
-    return render(request, 'expenses.html', {'form': form})
-class MeMixin:
-    @action(methods=['get'], detail=False)
-    def me(self, request):
-        serializer = self.get_serializer_class()
-        data = serializer(
-            **self.get_me_config()
-        ).data
-        return Response(data, status=status.HTTP_200_OK)
 
+            modele_instance = form.save()
+
+            return redirect('calculs.views.type_modele_detail', pk=modele_instance.pk)
+
+    else: 
+        form = ProductForm(id)  
+
+    return render(request, 'expenses.html', {'form': form})
+
+def type_modele_detail(request, pk):
+    modele_instance = get_object_or_404(Product, pk=pk)
+    return render(request, 'expenses.html', {'modele_instance': modele_instance})

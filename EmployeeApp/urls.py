@@ -8,6 +8,6 @@ urlpatterns=[
     re_path(r'^restorantApi/([0-9]+)$',views.RestorantApi),
     re_path(r'^categoryApi$',views.CategoryApi),
     re_path(r'^categoryApi/([0-9]+)$',views.CategoryApi),
-    re_path(r'productApi/([0-9]+)/([0-9]+)$',views.ProductApi),
+    re_path(r'asd/([0-9]+)$',views.type_modele_new),
 
 ]

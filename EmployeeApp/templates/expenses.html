@@ -6,14 +6,16 @@
     <div class="col-md-6 offset-md-3">
         <h3>Harcamalar</h3>
         <hr>
-        <form method = "post">
+        <form action="your url that points to your view" method="POST">
             {% csrf_token %}
-            
-           {{form|crispy}}
-            <br>
-            <button type = "submit" class = "btn btn-danger">Borç Ekle</button>
+            {{ form.media.js }}
+            {{ form.as_p}}
+            <input type="submit" value="Submit">
         </form>
     </div>
   </div>
   </div>
+  
 {% endblock body %}
+<script src="/static/smart-selects/admin/js/chainedfk.js"></script>
+<script src="/static/smart-selects/admin/js/bindfields.js"></script>
