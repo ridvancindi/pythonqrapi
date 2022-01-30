@@ -1,0 +1,42 @@
+
+{% block body %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<div class="container">
+{% if models %}
+<div class="w3-quarter ">
+    <table class=" table table-bordered table-dark " style="margin-top:5em;">
+        <thead>
+          <tr>
+            <th scope="col">Category İsmi</th>
+            <th scope="col">Tarih</th>
+            <th scope="col">Düzenle</th>
+            <th scope="col">Sil</th>
+          </tr>
+        </thead>
+        <tbody>
+            
+          <tr >{% for model in models %}
+            <td><a class="link-light" href="/product/{{user.account.restorant_id}}/{{model.id}}">{{model.name}}</a></td>
+            <td>{{user.account.restorant_id}}</td>
+        
+            <td><a class="btn btn-success rounded ml-1" href="/edit/{{model.cat_Code}}">Düzenle</a></td>
+            <td><a class="btn btn-danger rounded ml-1" href="/delete/{{model.cat_Code}}">Sil</a></td>
+          </tr>
+        </a>
+          {% endfor %}
+        
+        </tbody>
+      </table>
+  </div>
+    {% else %}
+    <div class="alert alert-danger">Bulunamadı.</div>
+    {% endif %}
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock body %}

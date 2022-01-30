@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-l!icj#l9=xps3zk-3_x#uyi&d)vy(%=1fk1vp4!($@ikbxz#$9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','pythonqrapi.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,9 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'EmployeeApp.apps.EmployeeappConfig',
+    'RestorantAPI.apps.RestorantapiConfig',
+    "User.apps.UserConfig",
     'crispy_forms',
     'smart_selects',
+    'bootstrap5',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -60,11 +62,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'DjangoAPI.urls'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ["templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
