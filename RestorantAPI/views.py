@@ -64,13 +64,21 @@ def home(request):
     context = {
         "models":models
     } 
+    return render(request,"home.html",context)
+@login_required(login_url = "/")
+def catList(request):
+    rest_Code = request.user.account.restorant_id
+    models = Category.objects.filter(restorant_id=rest_Code)
+    context = {
+        "models":models
+    } 
     return render(request,"list.html",context)
 @login_required(login_url = "/")
-def deletemoney(request,cat_Code):
+def deleteCategory(request,cat_Code):
     deleteCategory = get_object_or_404(Category,cat_Code = cat_Code)
     deleteCategory.delete()
     messages.success(request,"Başarıyla Silindi.")
-    return redirect("home")
+    return redirect("catlist")
 @csrf_exempt
 @login_required(login_url = "/")
 def edit(request,cat_Code):
@@ -80,7 +88,7 @@ def edit(request,cat_Code):
         editmoney =form.save(commit=False)
         editmoney.save()
         messages.success(request,"Başarıyla Düzenlendi")
-        return redirect("home")
+        return redirect("catlist")
     return render(request,"edit.html",{"form":form})
 @login_required(login_url = "/")
 def homes(request,cat_Code,id):

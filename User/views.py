@@ -4,7 +4,9 @@ from User.forms import *
 from django.contrib.auth.models import User
 from django.contrib.auth import login,authenticate,logout
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
+@csrf_exempt
 def index(request):
     if request.user.is_authenticated:
         return redirect("home")
@@ -13,8 +15,8 @@ def index(request):
         "form" : form
     }
     if form.is_valid():
-        username = form.cleaned_data.get("username")
-        password = form.cleaned_data.get("password")
+        username = request.POST['username']
+        password = request.POST['password']
         user = authenticate(username = username ,password = password)
         if user is None:
             messages.error(request,"Kullanıcı Hadı Veya Parola Hatalı")

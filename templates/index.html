@@ -16,73 +16,206 @@
         </div>
     </div>
 </div> -->
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <title>Bank Customer Feedback Form</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <title>Login V1</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
-    {% load bootstrap5 %}
-    {% bootstrap_css %}
-    {% bootstrap_javascript %}
-    <style></style>
-<section class="vh-100" style="background-color: #9A616D;">
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col col-xl-10">
-          <div class="card" style="border-radius: 1rem;">
-            <div class="row g-0">
-              <div class="col-md-6 col-lg-5 d-none d-md-block">
-                <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
-                  alt="login form"
-                  class="img-fluid" style="border-radius: 1rem 0 0 1rem;"
-                />
-              </div>
-              <div class="col-md-6 col-lg-7 d-flex align-items-center">
-                <div class="card-body p-4 p-lg-5 text-black">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+  crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
+  {% load bootstrap5 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  <style>
+    :root {
+    --body_gradient_left: #7200D0;
+    --body_gradient_right: #C800C1;
+    --form_bg: #ffffff;
+    --input_bg: #E5E5E5;
+    --input_hover: #eaeaea;
+    --submit_bg: #1FCC44;
+    --submit_hover: #40e263;
+    --icon_color: #6b6b6b;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* make the body full height*/
+    height: 100vh;
+    /* set our custom font */
+    font-family: 'Roboto',
+        sans-serif;
+    /* create a linear gradient*/
+    background-image: linear-gradient(to right, var(--body_gradient_left), var(--body_gradient_right));
+    display: flex;
+}
+
+#form_wrapper {
+    width: 1000px;
+    height: 700px;
+    /* this will help us center it*/
+    margin: auto;
+    background-color: var(--form_bg);
+    border-radius: 50px;
+    /* make it a grid container*/
+    display: grid;
+    /* with two columns of same width*/
+    grid-template-columns: 1fr 1fr;
+    /* with a small gap in between them*/
+    grid-gap: 5vw;
+    /* add some padding around */
+    padding: 5vh 15px;
+}
+
+#form_left {
+    /* center the image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#form_left img {
+    width: 350px;
+    height: 350px;
+}
+
+#form_right {
+    padding: 10% 5%;
+}
+
+h1,
+span {
+    text-align: center;
+}
+
+.input_container {
+    background-color: var(--input_bg);
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.input_container:hover {
+    background-color: var(--input_hover);
+}
+
+.input_container,
+#input_submit {
+    height: 60px;
+    /* make the borders more round */
+    border-radius: 30px;
+    width: 100%;
+}
+
+.input_field {
+    /* customize the input tag with lighter font and some padding*/
+    color: var(--icon_color);
+    background-color: inherit;
+    width: 90%;
+    border: none;
+    font-size: 1.3rem;
+    font-weight: 400;
+    padding-left: 30px;
+}
+
+.input_field:hover,
+.input_field:focus {
+    /* remove the outline */
+    outline: none;
+}
+
+#input_submit {
+    /* submit button has a different color and different padding */
+    background-color: var(--submit_bg);
+    padding-left: 0;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+}
+
+#input_submit:hover {
+    background-color: var(--submit_hover);
+    /* simple color transition on hover */
+    transition: background-color,
+        1s;
+    cursor: pointer;
+}
+
+/* shift it a bit lower */
+#create_account {
+    display: block;
+    position: relative;
+    top: 30px;
+}
+
+a {
+    /* remove default underline */
+    text-decoration: none;
+    color: var(--submit_bg);
+    font-weight: bold;
+}
+
+a:hover {
+    color: var(--submit_hover);
+}
+
+i {
+    color: var(--icon_color);
+}
+.input_forget{
+  margin-bottom: 1.5em;
+}
+/* make it responsive */
+@media screen and (max-width:768px) {
+
+    /* make the layout  a single column and add some margin to the wrapper */
+    #form_wrapper {
+        grid-template-columns: 1fr;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    /* on small screen we don't display the image */
+    #form_left {
+        display: none;
+    }
+}
+  </style>
   
-                  <form>
-  
-                    <div class="d-flex align-items-center mb-3 pb-1">
-                      <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
-                      <span class="h1 fw-bold mb-0">Logo</span>
-                    </div>
-  
-                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
-  
-                    <div class="form-outline mb-4">
-                      <input type="email" id="form2Example17" class="form-control form-control-lg" />
-                      <label class="form-label" for="form2Example17">Email address</label>
-                    </div>
-  
-                    <div class="form-outline mb-4">
-                      <input type="password" id="form2Example27" class="form-control form-control-lg" />
-                      <label class="form-label" for="form2Example27">Password</label>
-                    </div>
-  
-                    <div class="pt-1 mb-4">
-                      <button class="btn btn-dark btn-lg btn-block" type="button">Login</button>
-                    </div>
-  
-                    <a class="small text-muted" href="#!">Forgot password?</a>
-                    <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="#!" style="color: #393f81;">Register here</a></p>
-                    <a href="#!" class="small text-muted">Terms of use.</a>
-                    <a href="#!" class="small text-muted">Privacy policy</a>
-                  </form>
-  
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div id="form_wrapper">
+    <div id="form_left">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Circle-icons-computer.svg/1200px-Circle-icons-computer.svg.png" alt="computer icon">
     </div>
-  </section>
+    <form autocomplete="off" method="post">
+    <div id="form_right">
+      <h1>Member Login</h1>
+      <div class="input_container">
+        <i class="fas fa-envelope"></i>
+        <input autocomplete="off" placeholder="Kullanıcı Adı" type="username" name="username" id="username" class='input_field'>
+      </div>
+      <div class="input_container">
+        <i class="fas fa-lock"></i>
+        <input placeholder="Şifre" type="password" name="password" id="field_password" class='input_field'>
+      </div>
+      <input type="submit" value="Login" id='input_submit' class='input_field input_forget'>
+      <span class="forget"><a href="#"> Kullanıcı Adı / Şifremi ?</a> Unuttum</span>
+    </div></form>
+  </div>
+
 </body>
+
+</html>
 {% endblock body %}
 <!-- <div class="container">
 <div class="row" style="margin-top:100px;">
@@ -92,7 +225,6 @@
         <form method = "post">
             {% csrf_token %}
             
-           {{form|crispy}}
             <br>
             <button type = "submit" class = "btn btn-success">Giriş Yap</button>
             <a href="/register" class = "btn btn-danger">Kayıt Ol</a>
@@ -145,3 +277,667 @@
       </div>
     </div>
   </section> -->
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Collapse sidebar in Bootstrap 4</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+	<link rel="stylesheet" href="style/style.css">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&amp;display=swap"
+		rel="stylesheet">
+  
+</head>
+
+<body>
+  {% load bootstrap5 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  <style>
+    p{
+      font-size: 1.1em;
+      font-weight: 300;
+      line-height: 1.7em;
+      color: #999;
+    }
+    a,
+    a:hover{
+      color: inherit;
+      text-decoration: none;
+      transition: all 0.3s;
+      
+    }
+    #sidebar.active {
+        margin-left: -250px;
+    }
+    .wrapper{
+      display: flex;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    
+    #sidebar{
+      min-width: 250px;
+      max-width: 250px;
+      background: #F8775A;
+      color: #F4F5F8;
+      transition: all 0.3s;
+    }
+    
+    
+    #sidebar .sidebar-header{
+      padding: 5px;
+      
+      border-bottom: 1px solid white;
+      margin-bottom: 15px;
+    }
+    #sidebar ul.components{
+      padding: 20px 0;
+    }
+    
+    #sidebar ul p{
+      color: #F4F5F7;
+      padding: 10px;
+      
+    }
+    
+    #sidebar ul li a{
+      padding: 10px 0px 5px;
+      
+      font-size: 1.1em;
+      display: block;
+    }
+    .navitem{
+      padding-left: 10px !important;
+      font-size: 1.1em;
+      display: block;
+    }
+    
+    #sidebar ul li.active>a,
+    
+    a[data-toggle="collapse"]{
+      position: relative;
+    }
+    
+    .dropdown-toggle::after{
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: 20%;
+      transform: translateY(-50%);
+    }
+    ul ul a{
+      font-size: 0.9em !important;
+      padding-left: 30px !important;
+    }
+    
+    #content{
+      width: 100%;
+      padding: 20px;
+      min-height: 100vh;
+      transition: all 0.3s;
+    }
+    
+    
+    @media (max-width: 768px) {
+        #sidebar {
+            margin-left: -250px;
+        }
+        #sidebar.active {
+            margin-left: 0;
+        }
+        #sidebarCollapse span {
+            display: none;
+      }
+      .okul-ism{
+        font-size: 15px;
+        margin-left: 3rem !important;
+      }
+      .mavii{
+        margin-left: 90% !important;
+      }
+      .left{
+        margin: auto;
+        margin-bottom: 2px !important;
+      }
+    
+    }
+    #topheader .navbar-nav li.active > a {
+      background-color: #333;
+      color:#F4F5F7;
+    }
+    body {
+          font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+      background-color: #EDEEF3;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .container {
+      height: 100vh;
+    }
+    
+    .side-nav .nav-menu {
+      list-style: none;
+      padding: 20px 0;
+      width: 100%;
+      background-color: #F8775A;
+    }
+    .side-nav .nav-item {
+      position: relative;
+      padding: 5px;
+      margin-top: 10px;
+    }
+    .nav-item.active {
+      background-color: #F4F5F7;
+      box-shadow: 0px -3px rgba(0, 0, 0, 0), 0px 3px rgba(0, 0, 0, 0);
+    }
+    .nav-item.active a {
+      color: #F8775A;
+    }
+    .nav-item a {
+      text-decoration: none;
+      color: #F4F5F7;
+    }
+    .menu-text {
+      padding: 0 20px;
+    }
+    .side-nav .nav-item.active::before {
+      content: "";
+      position: absolute;
+      background-color: transparent;
+      bottom: 100%;
+      right: 0;
+      height: 150%;
+      width: 20px;
+      border-bottom-right-radius: 25px;
+      box-shadow: 0 20px 0 0#F4F5F7;
+    }
+    .side-nav .nav-item.active::after {
+      content: "";
+      position: absolute;
+      background-color: transparent;
+      top: 100%;
+      right: 0;
+      height: 150%;
+      width: 20px;
+      border-top-right-radius: 25px;
+      box-shadow: 0 -20px 0 0 #F4F5F7;
+    }
+    
+    
+    .side-nav.active{
+      margin-left: -250px;
+    }
+    .sidebar-left{
+      padding-left:15px;
+    }
+    
+    .mavi{
+      background-color: #F8775A !important;
+      position: absolute;
+      color: white !important;
+    }
+    .mavii{
+      background-color: #F8775A !important;
+      color: white !important;
+      margin-left: 97%;
+    }
+    .navbar{
+      background-color: white !important;
+      
+    }
+    .avatar{
+      background-color: white;
+      height: 13rem;
+    }
+    .avatar2{
+      background-color: #F8775A;
+      height: 5rem;
+    }
+    .ogr-resmi{
+      border-radius: 100%;
+      width: 6rem;
+      margin: 2rem 0rem 0rem 5rem;
+    }
+    .isim{
+      color: black;
+      opacity: .8;
+      margin-top: 0.5rem;
+      text-align:  center;
+      
+    }
+    .isim1{
+      color: black;
+      opacity: .6;
+      font-weight: bold;
+      font-size: 16px;
+      margin-left: 4.5rem;
+    }
+    .isim2{
+      color: black;
+      opacity: .6;
+      font-weight: bold;
+      font-size: 16px;
+      margin-left: 3rem;
+    }
+    .okul-ism{
+      margin-left: 4rem;
+      position: absolute;
+      margin-top: 0.6rem;
+    }
+    .list-icon{
+      margin-left: 15px;
+    }
+    .icon{
+      color:  #F8775A;
+      border-radius: 50%;
+      right: 10px;
+    }
+    .setting{
+      color: white;
+      text-align: center;
+      right: 6rem;
+    }
+    .exit{
+      background-color: red;
+      color: white;
+    
+    }
+    .navitem1{
+      margin-bottom: 15px;
+    }
+    .icon:hover{
+      color: white;
+    }
+    
+      /* Duyuru */
+    
+    .right-menu{
+      background-color: white;
+      border-radius: 10px;
+    }
+    .col-3{
+      padding-right: 0px !important;
+      border-radius: 10px 10px 0px 0px ;
+    }
+    .col-9{
+      padding-left: 0px !important;
+      padding-right: 50px!important;
+    }
+    .anoncer-header{
+      padding: 10px 10px 10px 10px;
+      margin: 0px;
+      border-radius: 10px 10px 0px 0px ;
+      color: white;
+      background-color: #F8775A;
+    }
+    .announcement-header{
+      font-size: 15px;
+      margin-bottom: 0px !important;
+      margin-top: 5px;
+      font-weight: bold;
+      color: black;
+    }
+    .announcement-text{
+      font-size: 13px;
+      
+    }
+    .announcement-img{
+      border-radius: 100%;
+      height: 45px;
+      margin: 10px 0px 0px 5px;
+    }
+    
+    .media{
+      margin-top: 5px;
+      margin-left: 8px;
+    }
+    .announcement-icon{
+      position: absolute;
+    }
+    .announcement-icon-text{
+      margin-left: 25px;
+    }
+    
+    /* Kullanıcı Bilgi */
+    
+    .left-menu{
+      background-color: white;
+      border-radius: 10px;
+    }
+    
+    .user-info-h{
+      background-color: #F8775A;
+      color: white;
+      padding: 0px !important;
+      border-radius: 10px 10px 0px 0px ;
+    }
+    
+    .user-info-icon{
+      position: absolute;
+      padding: 10px;
+    }
+    
+    .user-info-text{
+      padding-left: 40px;
+      padding-top: 14px;
+      padding-bottom: 10px;
+    }
+    
+    .user-info-img{
+      height: 140px;
+      border-radius: 100%;
+      margin-top: 25px;
+      margin-left: 25px;
+    }
+    .info{
+      margin-top:35px ;
+    }
+    .mavı{
+      color: #F8775A;
+    }
+    .buyuk{
+      font-weight: bold;
+    }
+    .left{
+      margin-bottom: 50px;
+    }
+    /*asdasd*/
+    .announcement-headerr{
+      font-size: 15px;
+      margin-bottom: 0px !important;
+      margin-top: 10px;
+      font-weight: bold;
+      color: black;
+    }
+    .announcement-imgg{
+      margin: 15px 0px 0px 5px;
+      margin-right: 60px;
+    }
+    .right-menuu{
+      background-color: white;;
+      border-radius: 3px;
+    }
+    .anoncer-headerr{
+      padding: 10px 10px 10px 10px;
+      margin: 0px;
+      border-radius: 3px 3px 0px 0px ;
+      color: white;
+      background-color: #F8775A;
+    }
+    .links{
+      font-weight: 600;
+      font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+      color: #3c8dbc;
+    }
+    .items{
+      padding: 10px 0;
+      padding-bottom: 15px;
+      list-style: none;
+      border-bottom: 1px solid #f4f4f4;
+    }
+    .left-imgs{
+      float: left;
+    }
+    .left-imgs{
+      width: 50px;
+      height: 50px;
+      vertical-align: middle;
+    }
+    .right-texts{
+      margin-left: 60px;
+    }
+    .right-span{
+      display: block;
+        color: #999;
+        overflow: hidden;
+        white-space: nowrap;
+      text-overflow: ellipsis;
+      font-size: 14px;
+    }
+    /*Ders Programı*/
+    
+    .js-lesson{
+      font-size: 17px;
+      font-weight: bold;
+      margin-bottom: 1px;
+    }
+    .js-lessons{
+      font-size: 17px;
+      margin-bottom: 1px;
+    }
+    .js-hour{
+      font-size: 13px;
+      margin-bottom: 1px;
+    }
+    .js-teacher{
+      font-size: 14px;
+    }
+    
+    .table thead tr th{
+      width: 10%;
+      padding: .75rem;
+    }
+    .js-table{
+      border-radius: 10px;
+      box-shadow: 0 2px 6px hsl(0deg 0% 39% / 20%);
+    }
+    .js-td {
+      vertical-align: middle !important;
+    }
+    
+    .js-table-top{
+      background-color: #F8775A;
+    }
+    .js-query-text{
+      font-size: 1.5rem;
+    }
+    [data-href] {
+        cursor: pointer;
+    }
+    .siderbar-profile-pic {
+        padding-top: 10px;
+        text-align: center;
+    }
+    .profile-img-circle {
+        background: #fff;
+        z-index: 1000;
+        position: inherit;
+        border: 2px solid rgba(52,73,94,.44);
+        border-radius: 50%;
+        display: block;
+        width: 80px;
+    }
+    .siderbar-profile-details {
+        text-align: center;
+        color: #e2e2e2;
+        padding-top: 8px;
+    }
+    .siderbar-profile-name {
+        white-space: nowrap;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 20px;
+    }
+    .siderbar-profile-position {
+        font-size: 12px;
+        line-height: 14px;
+    }
+    .sidebar-profile-buttons {
+        display: flex;
+        place-content: space-around;
+        font-size: 18px;
+        width: 190px;
+        text-align: center;
+        margin: auto;
+    }
+    .siderbar-profile-pic {
+        padding-top: 10px;
+        text-align: center;
+    }
+    .box-center {
+        margin: 0 auto;
+    }
+    .sidebar-brand {
+        display: inline-block;
+        width: 100%;
+        text-align: left;
+        padding-left: 20px;
+        height: 70px;
+        line-height: 70px;
+      background-color: rgba(0,0,0,.15);
+    }
+    .dropdown-item:hover{
+      color: black !important;
+    }
+    .syllabus{
+      margin-top: 2rem;
+    }</style>
+	<div class="wrapper">
+		<nav class="side-nav" id="sidebar">
+			<div class="sidebar-brand">
+				<a href="index.html">
+					<img alt="image" src="img/logo.png" class="header-logo" style="height: 50px;">
+					<span class="logo-name">Rıdvan Cindioğlu</span>
+				</a>
+			</div>
+			<div class="sidebar-profile mt-2">
+				<div class="siderbar-profile-pic">
+					<img src="https://raw.githubusercontent.com/sefyudem/Responsive-Login-Form/82b8d8efd3b0ac6382b9d0d71a99c6cf9dcefa23/img/avatar.svg"
+						class="profile-img-circle box-center" alt="User Image">
+				</div>
+				<div class="siderbar-profile-details">
+					<div class="siderbar-profile-name text-white"> İsim Soyisim </div>
+					<div class="siderbar-profile-position text-white">Öğrenci </div>
+				</div>
+			</div>
+			<ul class="lisst-unstyled nav-menu">
+
+				<li class="nav-item navitem1 active">
+					<a class="navitem" href="Index.html"><i class="fas fa-home"></i> AnaSayfa</a>
+				</li>
+				<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="sidebar-left"><i
+						class="fas fa-user-graduate"></i> Öğrenci İşleri <i class="fas fa-caret-down list-icon"></i></a>
+				<ul class="collapse list-unstyled" id="homeSubmenu">
+					<li class="nav-item ogr-hover">
+						<a href="#" class="ogr-ogr-hover"><span> <i class="fas fa-users"></i> Öğrenciler</span></a>
+					</li>
+					<li class="nav-item veli-hover">
+						<a href="#" class="veli-hovers"><i class="fas fa-user-friends"></i> Veliler</a>
+					</li>
+
+				</ul>
+				<li class="nav-item sub-hover">
+					<a class="navitem sub-hoverd" href="#listhome"><i class="fas fa-chalkboard-teacher"></i> Şubeler</a>
+				</li>
+				<li class="nav-item egit-hover">
+					<a class="navitem egit-hover4" href="#"><i class="fas fa-user-tie"></i> Eğitmenler</a>
+				</li>
+				<li class="nav-item soru-hover">
+					<a class="navitem soru-hovers" href=".\soru.html"><i class="fas fa-comment-dots"></i> Soru
+						Çözümü</a>
+				</li>
+				<li class="nav-item online-hover">
+					<a class="navitem online-hovers" href="./onl-birebir.html"><i class="fas fa-user-friends"></i>
+						Online Birebir</a>
+				</li>
+			</ul>
+		</nav>
+
+		<div id="content">
+
+			<nav class="navbar rounded col-12">
+				<div class="container-fluid">
+					<button type="button" id="sidebarCollapse" class="btn mavi">
+						<i class="fas fa-align-left"></i>
+					</button>
+					<h5 class="okul-ism">Gaziantep Anadolu Lisesi</h5>
+					<button type="button" class="btn icon mavii dropdown-toggle" data-toggle="dropdown">
+						<i class="fas fa-cog fa-sm"></i>
+					</button>
+					<div class="dropdown-menu dropdown-menu-right">
+						<a class="dropdown-item m-1" style="color: #959aa8" href="#"><i class="fas fa-user-lock"></i>
+							<span class="ml-1">Şifremi değiştir</span> </a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item m-1" style="color: #959aa8" href="#"><i class="fas fa-sign-out-alt"></i>
+							<span class="ml-1">Çıkış</span>
+						</a>
+					</div>
+				</div>
+			</nav>
+
+			<br><br>
+			<div class="container-fluid">
+				<div class="row">
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+	<script>
+
+		$(document).ready(function () {
+			$('#sidebarCollapse').on('click', function () {
+				$('#sidebar').toggleClass('active');
+			});
+		});
+
+	</script>
+	<script>
+		$(function () {
+			$("li").click(function () {
+				$("li").removeClass("active");
+				$(this).addClass("active");
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function () {
+			$('[data-toggle="tooltip"]').tooltip();
+		});
+		$(function () {
+			var a = 0;
+			$('.sub-hoverd').hover(function () {
+				$('.sub-hover').toggleClass("active");
+			});
+			$('.egit-hover4').hover(function () {
+				$('.egit-hover').toggleClass("active");
+			});
+			$('.ogr-ogr-hover').hover(function () {
+				$('.ogr-hover').toggleClass("active");
+			});
+			$('.online-hovers').hover(function () {
+				$('.online-hover').toggleClass("active");
+			});
+			$('.soru-hovers').hover(function () {
+				$('.soru-hover').toggleClass("active");
+			});
+			$('.veli-hovers').hover(function () {
+				$('.veli-hover').toggleClass("active");
+			});
+
+		});
+	</script>
+
+
+
+</body>
+
+</html> -->

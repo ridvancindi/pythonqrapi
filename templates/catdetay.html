@@ -1,0 +1,619 @@
+{% load crispy_forms_tags %}
+{% block body %}
+<!-- <div class="container">
+    <div class="row" style="margin-top:100px;">
+        <div class="col-md-6 offset-md-3">
+            <h3>Harcamalar</h3>
+            <hr>
+            <form method="POST">
+                {{ form.category}}
+                <input type="text" name="name" id="name">
+                <input type="text" name="product_Img" id="product_Img">
+                <input type="text" name="price" id="price">
+                <input type="text" name="pro_contents" id="pro_contents">
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+</div> -->
+
+<head>
+    <title>Bank Customer Feedback Form</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+</head>
+
+<body>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <style>
+        p {
+            font-size: 1.1em;
+            font-weight: 300;
+            line-height: 1.7em;
+            color: #999;
+        }
+
+        a,
+        a:hover {
+            color: inherit;
+            text-decoration: none;
+            transition: all 0.3s;
+
+        }
+
+        #sidebar.active {
+            margin-left: -250px;
+        }
+
+        .wrapper {
+            display: flex;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        #sidebar {
+            min-width: 250px;
+            max-width: 250px;
+            background: #F8775A;
+            color: #EDEEF3;
+            transition: all 0.3s;
+        }
+
+
+        #sidebar .sidebar-header {
+            padding: 5px;
+
+            border-bottom: 1px solid white;
+            margin-bottom: 15px;
+        }
+
+        #sidebar ul.components {
+            padding: 20px 0;
+        }
+
+        #sidebar ul p {
+            color: #EDEEF3;
+            padding: 10px;
+
+        }
+
+        #sidebar ul li a {
+            padding: 10px 0px 5px;
+
+            font-size: 1.1em;
+            display: block;
+        }
+
+        .navitem {
+            padding-left: 10px !important;
+            font-size: 1.1em;
+            display: block;
+        }
+
+        #sidebar ul li.active>a,
+
+        a[data-toggle="collapse"] {
+            position: relative;
+        }
+
+        .dropdown-toggle::after {
+            display: block;
+            position: absolute;
+            top: 50%;
+            right: 20%;
+            transform: translateY(-50%);
+        }
+
+        ul ul a {
+            font-size: 0.9em !important;
+            padding-left: 30px !important;
+        }
+
+        #content {
+            width: 100%;
+            padding: 20px;
+            min-height: 100vh;
+            transition: all 0.3s;
+        }
+
+
+        @media (max-width: 768px) {
+            #sidebar {
+                margin-left: -250px;
+            }
+
+            #sidebar.active {
+                margin-left: 0;
+            }
+
+            #sidebarCollapse span {
+                display: none;
+            }
+
+            .okul-ism {
+                font-size: 15px;
+                margin-left: 3rem !important;
+            }
+
+            .mavii {
+                margin-left: 90% !important;
+            }
+
+            .left {
+                margin: auto;
+                margin-bottom: 2px !important;
+            }
+
+        }
+
+        #topheader .navbar-nav li.active>a {
+            background-color: #333;
+            color: #EDEEF3;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+            background-color: #EDEEF3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            height: 100vh;
+        }
+
+        .side-nav .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+            width: 100%;
+            background-color: #F8775A;
+        }
+
+        .side-nav .nav-item {
+            position: relative;
+            padding: 5px;
+            margin-top: 10px;
+        }
+
+        .nav-item.active {
+            background-color: #EDEEF3;
+            box-shadow: 0px -3px rgba(0, 0, 0, 0), 0px 3px rgba(0, 0, 0, 0);
+        }
+
+        .nav-item.active a {
+            color: #F8775A;
+        }
+
+        .nav-item a {
+            text-decoration: none;
+            color: #EDEEF3;
+        }
+
+        .menu-text {
+            padding: 0 20px;
+        }
+
+        .side-nav .nav-item.active::before {
+            content: "";
+            position: absolute;
+            background-color: transparent;
+            bottom: 100%;
+            right: 0;
+            height: 150%;
+            width: 20px;
+            border-bottom-right-radius: 25px;
+            box-shadow: 0 20px 0 0#EDEEF3;
+        }
+
+        .side-nav .nav-item.active::after {
+            content: "";
+            position: absolute;
+            background-color: transparent;
+            top: 100%;
+            right: 0;
+            height: 150%;
+            width: 20px;
+            border-top-right-radius: 25px;
+            box-shadow: 0 -20px 0 0 #EDEEF3;
+        }
+
+
+        .side-nav.active {
+            margin-left: -250px;
+        }
+
+        .sidebar-left {
+            padding-left: 15px;
+        }
+
+        .mavi {
+            background-color: #F8775A !important;
+            position: absolute;
+            color: white !important;
+        }
+
+        .mavii {
+            background-color: #F8775A !important;
+            color: white !important;
+            margin-left: 95%;
+        }
+
+        .navbar {
+            background-color: white !important;
+
+        }
+
+        .avatar {
+            background-color: white;
+            height: 13rem;
+        }
+
+        .avatar2 {
+            background-color: #F8775A;
+            height: 5rem;
+        }
+
+        .ogr-resmi {
+            border-radius: 100%;
+            width: 6rem;
+            margin: 2rem 0rem 0rem 5rem;
+        }
+
+        .isim {
+            color: black;
+            opacity: .8;
+            margin-top: 0.5rem;
+            text-align: center;
+
+        }
+
+        .isim1 {
+            color: black;
+            opacity: .6;
+            font-weight: bold;
+            font-size: 16px;
+            margin-left: 4.5rem;
+        }
+
+        .isim2 {
+            color: black;
+            opacity: .6;
+            font-weight: bold;
+            font-size: 16px;
+            margin-left: 3rem;
+        }
+
+        .okul-ism {
+            margin-left: 4rem;
+            position: absolute;
+            margin-top: 0.6rem;
+        }
+
+        .list-icon {
+            margin-left: 15px;
+        }
+
+        .icon {
+            color: #F8775A;
+            right: 10px;
+        }
+
+        .setting {
+            color: white;
+            text-align: center;
+            right: 6rem;
+        }
+
+        .exit {
+            background-color: red;
+            color: white;
+
+        }
+
+        .navitem1 {
+            margin-bottom: 15px;
+        }
+
+        .icon:hover {
+            color: white;
+        }
+
+        /* Duyuru */
+
+        .right-menu {
+            background-color: white;
+            border-radius: 10px;
+        }
+
+        .col-3 {
+            padding-right: 0px !important;
+            border-radius: 10px 10px 0px 0px;
+        }
+
+        .col-9 {
+            padding-left: 0px !important;
+            padding-right: 50px !important;
+        }
+
+        .anoncer-header {
+            padding: 10px 10px 10px 10px;
+            margin: 0px;
+            border-radius: 10px 10px 0px 0px;
+            color: white;
+            background-color: #F8775A;
+        }
+
+        .announcement-header {
+            font-size: 15px;
+            margin-bottom: 0px !important;
+            margin-top: 5px;
+            font-weight: bold;
+            color: black;
+        }
+
+        .announcement-text {
+            font-size: 13px;
+
+        }
+
+        .announcement-img {
+            border-radius: 100%;
+            height: 45px;
+            margin: 10px 0px 0px 5px;
+        }
+
+        .media {
+            margin-top: 5px;
+            margin-left: 8px;
+        }
+
+        .announcement-icon {
+            position: absolute;
+        }
+
+        .announcement-icon-text {
+            margin-left: 25px;
+        }
+
+        /* Kullanıcı Bilgi */
+
+        .left-menu {
+            background-color: white;
+            border-radius: 10px;
+        }
+
+        .user-info-h {
+            background-color: #F8775A;
+            color: white;
+            padding: 0px !important;
+            border-radius: 10px 10px 0px 0px;
+        }
+
+        .user-info-icon {
+            position: absolute;
+            padding: 10px;
+        }
+
+        .user-info-text {
+            padding-left: 40px;
+            padding-top: 14px;
+            padding-bottom: 10px;
+        }
+
+        .user-info-img {
+            height: 140px;
+            border-radius: 100%;
+            margin-top: 25px;
+            margin-left: 25px;
+        }
+
+        .info {
+            margin-top: 35px;
+        }
+
+        .mavı {
+            color: #F8775A;
+        }
+
+        .buyuk {
+            font-weight: bold;
+        }
+
+        .left {
+            margin-bottom: 50px;
+        }
+
+        /*asdasd*/
+        .announcement-headerr {
+            font-size: 15px;
+            margin-bottom: 0px !important;
+            margin-top: 10px;
+            font-weight: bold;
+            color: black;
+        }
+
+        .announcement-imgg {
+            margin: 15px 0px 0px 5px;
+            margin-right: 60px;
+        }
+
+        .right-menuu {
+            background-color: white;
+            ;
+            border-radius: 3px;
+        }
+
+        .anoncer-headerr {
+            padding: 10px 10px 10px 10px;
+            margin: 0px;
+            border-radius: 3px 3px 0px 0px;
+            color: white;
+            background-color: #F8775A;
+        }
+
+        .links {
+            font-weight: 600;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+            color: #3c8dbc;
+        }
+
+        .items {
+            padding: 10px 0;
+            padding-bottom: 15px;
+            list-style: none;
+            border-bottom: 1px solid #f4f4f4;
+        }
+
+        .left-imgs {
+            float: left;
+        }
+
+        .left-imgs {
+            width: 50px;
+            height: 50px;
+            vertical-align: middle;
+        }
+
+        .right-texts {
+            margin-left: 60px;
+        }
+
+        .right-span {
+            display: block;
+            color: #999;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 14px;
+        }
+
+        /*Ders Programı*/
+
+        .js-lesson {
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 1px;
+        }
+
+        .js-lessons {
+            font-size: 17px;
+            margin-bottom: 1px;
+        }
+
+        .js-hour {
+            font-size: 13px;
+            margin-bottom: 1px;
+        }
+
+        .js-teacher {
+            font-size: 14px;
+        }
+
+        .table thead tr th {
+            width: 10%;
+            padding: .75rem;
+        }
+
+        .js-table {
+            border-radius: 10px;
+            box-shadow: 0 2px 6px hsl(0deg 0% 39% / 20%);
+        }
+
+        .js-td {
+            vertical-align: middle !important;
+        }
+
+        .js-table-top {
+            background-color: #F8775A;
+        }
+
+        .js-query-text {
+            font-size: 1.5rem;
+        }
+
+        [data-href] {
+            cursor: pointer;
+        }
+
+        .siderbar-profile-pic {
+            padding-top: 10px;
+            text-align: center;
+        }
+
+        .profile-img-circle {
+            background: #fff;
+            z-index: 1000;
+            position: inherit;
+            border: 2px solid rgba(52, 73, 94, .44);
+            border-radius: 50%;
+            display: block;
+            width: 80px;
+        }
+
+        .siderbar-profile-details {
+            text-align: center;
+            color: #e2e2e2;
+            padding-top: 8px;
+        }
+
+        .siderbar-profile-name {
+            white-space: nowrap;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 20px;
+        }
+
+        .siderbar-profile-position {
+            font-size: 12px;
+            line-height: 14px;
+        }
+
+        .sidebar-profile-buttons {
+            display: flex;
+            place-content: space-around;
+            font-size: 18px;
+            width: 190px;
+            text-align: center;
+            margin: auto;
+        }
+
+        .siderbar-profile-pic {
+            padding-top: 10px;
+            text-align: center;
+        }
+
+        .box-center {
+            margin: 0 auto;
+        }
+
+        .sidebar-brand {
+            display: inline-block;
+            width: 100%;
+            text-align: left;
+            padding-left: 20px;
+            height: 70px;
+            line-height: 70px;
+            background-color: rgba(0, 0, 0, .15);
+        }
+
+        .dropdown-item:hover {
+            color: black !important;
+        }
+
+        .syllabus {
+            margin-top: 2rem;
+        }
+    </style>
+    <div class="wrapper">
+        {% include "includes/menu.html" %}
+        
+    </div>
+</body>
+{% endblock body %}

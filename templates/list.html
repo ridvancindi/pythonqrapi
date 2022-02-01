@@ -1,43 +1,293 @@
-
+{% extends "leyaut.html" %}
 {% block body %}
-{% load bootstrap5 %}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-<div class="container">
-  <a class="btn btn-success rounded ml-1" href="/logout">Çıkış Yap</a>
 {% if models %}
-<div class="w3-quarter ">
-    <table class=" table table-bordered table-dark " style="margin-top:5em;">
-        <thead>
-          <tr>
-            <th scope="col">Category İsmi</th>
-            <th scope="col">Tarih</th>
-            <th scope="col">Düzenle</th>
-            <th scope="col">Sil</th>
-          </tr>
-        </thead>
-        <tbody>
-            
-          <tr >{% for model in models %}
-            <td><a class="link-light" href="/product/{{user.account.restorant_id}}/{{model.id}}">{{model.name}}</a></td>
-            <td>{{user.account.restorant_id}}</td>
-        
-            <td><a class="btn btn-success rounded ml-1" href="/edit/{{model.cat_Code}}">Düzenle</a></td>
-            <td><a class="btn btn-danger rounded ml-1" href="/delete/{{model.cat_Code}}">Sil</a></td>
-          </tr>
-        </a>
-          {% endfor %}
-        
-        </tbody>
-      </table>
+
+<div class="container-fluid">
+  <div class="card shadow ">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Category Listesi</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Categori İsmi</th>
+              <th>Position</th>
+              <th>Office</th>
+              <th>Age</th>
+              <th>Start date</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr>{% for model in models %}
+              <td><a class="link-dark" href="/product/{{user.account.restorant_id}}/{{model.id}}">{{model.name}}</a>
+              </td>
+              <td>Accountant</td>
+              <td>Tokyo</td>
+              <td>63</td>
+              <td><a class="ml-1" href="/edit/{{model.cat_Code}}"><i class="fa fa-search"></i> İncele</a></td>
+              <!-- <td><a class="btn btn-danger rounded ml-1" href="/delete/{{model.cat_Code}}">Sil</a></td> -->
+            </tr>
+            </a>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-    {% else %}
-    <div class="alert alert-danger">Bulunamadı.</div>
-    {% endif %}
+  <!-- <div class="w3-quarter ">
+    <table class=" table table-bordered table-dark " style="margin-top:5em;">
+      <thead>
+        <tr>
+          <th scope="col">Category İsmi</th>
+          <th scope="col">Tarih</th>
+          <th scope="col">Düzenle</th>
+          <th scope="col">Sil</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>{% for model in models %}
+          <td><a class="link-light" href="/product/{{user.account.restorant_id}}/{{model.id}}">{{model.name}}</a></td>
+          <td>{{user.account.restorant_id}}</td>
+
+          <td><a class="btn btn-success rounded ml-1" href="/edit/{{model.cat_Code}}">Düzenle</a></td>
+          <td><a class="btn btn-danger rounded ml-1" href="/delete/{{model.cat_Code}}">Sil</a></td>
+        </tr>
+        </a>
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div> -->
 </div>
+<div class="container">
+<div class="body d-flex py-3">
+  <div class="container-xxl">
+    <div class="row align-items-center">
+      <div class="border-0 mb-4">
+        <div
+          class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
+          <h3 class="fw-bold mb-0">Categorie List</h3>
+          <a href="categories-add.html" class="btn btn-primary py-2 px-5 btn-set-task w-sm-100"><i
+              class="icofont-plus-circle me-2 fs-6"></i> Add Categories</a>
+        </div>
+      </div>
+    </div> <!-- Row end  -->
+    <div class="row g-3 mb-3">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <div id="myDataTable_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+              <div class="row">
+                <div class="col-sm-12">
+                  <table id="myDataTable"
+                    class="table table-hover align-middle mb-0 nowrap dataTable no-footer dtr-inline"
+                    style="width: 100%;" role="grid" aria-describedby="myDataTable_info">
+                    <thead>
+                      <tr role="row">
+                        <th class="sorting_asc" tabindex="0" aria-controls="myDataTable" rowspan="1" colspan="1"
+                          style="width: 91.2px;" aria-sort="ascending"
+                          aria-label="Id: activate to sort column descending">Id</th>
+                        <th class="sorting" tabindex="0" aria-controls="myDataTable" rowspan="1" colspan="1"
+                          style="width: 244.2px;" aria-label="Categorie: activate to sort column ascending">Categorie
+                        </th>
+                        <th class="dt-body-right sorting" tabindex="0" aria-controls="myDataTable" rowspan="1"
+                          colspan="1" style="width: 244.2px;" aria-label="Date: activate to sort column ascending">Date
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="myDataTable" rowspan="1" colspan="1"
+                          style="width: 140.2px;" aria-label="Status: activate to sort column ascending">Status</th>
+                        <th class="dt-body-right sorting" tabindex="0" aria-controls="myDataTable" rowspan="1"
+                          colspan="1" style="width: 168.2px;" aria-label="Action: activate to sort column ascending">
+                          Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr role="row" class="odd">
+                        <td tabindex="0" class="sorting_1"><strong>#0001</strong></td>
+                        <td>Watch</td>
+                        <td class=" dt-body-right" style="">March 13, 2021</td>
+                        <td style=""><span class="badge bg-success">Published</span></td>
+                        <td class=" dt-body-right" style="">
+                          <div class="btn-group" role="group" aria-label="Basic outlined example">
+                            <a href="categories-edit.html" class="btn btn-outline-secondary"><i
+                                class="icofont-edit text-success"></i></a>
+                            <button type="button" class="btn btn-outline-secondary deleterow"><i
+                                class="icofont-ui-delete text-danger"></i></button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr role="row" class="even">
+                        <td tabindex="0" class="sorting_1"><strong>#0002</strong></td>
+                        <td>Toy</td>
+                        <td class=" dt-body-right" style="">January 14, 2021</td>
+                        <td style=""><span class="badge bg-warning">Scheduled</span></td>
+                        <td class=" dt-body-right" style="">
+                          <div class="btn-group" role="group" aria-label="Basic outlined example">
+                            <a href="categories-edit.html" class="btn btn-outline-secondary"><i
+                                class="icofont-edit text-success"></i></a>
+                            <button type="button" class="btn btn-outline-secondary deleterow"><i
+                                class="icofont-ui-delete text-danger"></i></button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr role="row" class="odd">
+                        <td tabindex="0" class="sorting_1"><strong>#0003</strong></td>
+                        <td>Laptop</td>
+                        <td class=" dt-body-right" style="">February 08, 2021</td>
+                        <td style=""><span class="badge bg-success">Published</span></td>
+                        <td class=" dt-body-right" style="">
+                          <div class="btn-group" role="group" aria-label="Basic outlined example">
+                            <a href="categories-edit.html" class="btn btn-outline-secondary"><i
+                                class="icofont-edit text-success"></i></a>
+                            <button type="button" class="btn btn-outline-secondary deleterow"><i
+                                class="icofont-ui-delete text-danger"></i></button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr role="row" class="even">
+                        <td tabindex="0" class="sorting_1"><strong>#0004</strong></td>
+                        <td>Mobile</td>
+                        <td class=" dt-body-right" style="">April 02, 2021</td>
+                        <td style=""><span class="badge bg-warning">Scheduled</span></td>
+                        <td class=" dt-body-right" style="">
+                          <div class="btn-group" role="group" aria-label="Basic outlined example">
+                            <a href="categories-edit.html" class="btn btn-outline-secondary"><i
+                                class="icofont-edit text-success"></i></a>
+                            <button type="button" class="btn btn-outline-secondary deleterow"><i
+                                class="icofont-ui-delete text-danger"></i></button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr role="row" class="odd">
+                        <td tabindex="0" class="sorting_1"><strong>#0005</strong></td>
+                        <td>Tv</td>
+                        <td class=" dt-body-right" style="">June 19, 2021</td>
+                        <td style=""><span class="badge bg-success">Published</span></td>
+                        <td class=" dt-body-right" style="">
+                          <div class="btn-group" role="group" aria-label="Basic outlined example">
+                            <a href="categories-edit.html" class="btn btn-outline-secondary"><i
+                                class="icofont-edit text-success"></i></a>
+                            <button type="button" class="btn btn-outline-secondary deleterow"><i
+                                class="icofont-ui-delete text-danger"></i></button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr role="row" class="even">
+                        <td tabindex="0" class="sorting_1"><strong>#0006</strong></td>
+                        <td>Cloths</td>
+                        <td class=" dt-body-right" style="">April 10, 2021</td>
+                        <td style=""><span class="badge bg-warning">Scheduled</span></td>
+                        <td class=" dt-body-right" style="">
+                          <div class="btn-group" role="group" aria-label="Basic outlined example">
+                            <a href="categories-edit.html" class="btn btn-outline-secondary"><i
+                                class="icofont-edit text-success"></i></a>
+                            <button type="button" class="btn btn-outline-secondary deleterow"><i
+                                class="icofont-ui-delete text-danger"></i></button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr role="row" class="odd">
+                        <td tabindex="0" class="sorting_1"><strong>#0007</strong></td>
+                        <td>Footwear</td>
+                        <td class=" dt-body-right" style="">May 11, 2021</td>
+                        <td style=""><span class="badge bg-success">Published</span></td>
+                        <td class=" dt-body-right" style="">
+                          <div class="btn-group" role="group" aria-label="Basic outlined example">
+                            <a href="categories-edit.html" class="btn btn-outline-secondary"><i
+                                class="icofont-edit text-success"></i></a>
+                            <button type="button" class="btn btn-outline-secondary deleterow"><i
+                                class="icofont-ui-delete text-danger"></i></button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class=" col-md-5">
+                  <div class="dataTables_info" id="myDataTable_info" role="status" aria-live="polite">Showing 1 to 10 of
+                    13 entries</div>
+                </div>
+                <div class="col-md-7">
+                  <div class="dataTables_paginate paging_simple_numbers" id="myDataTable_paginate">
+                    <ul class="pagination">
+                      <li class="paginate_button page-item previous disabled" id="myDataTable_previous"><a href="#"
+                          aria-controls="myDataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                      <li class="paginate_button page-item active"><a href="#" aria-controls="myDataTable"
+                          data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                      <li class="paginate_button page-item "><a href="#" aria-controls="myDataTable" data-dt-idx="2"
+                          tabindex="0" class="page-link">2</a></li>
+                      <li class="paginate_button page-item next" id="myDataTable_next"><a href="#"
+                          aria-controls="myDataTable" data-dt-idx="3" tabindex="0" class="page-link">Next</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+</div>
+{% else %}
+<div class="alert alert-danger">Bulunamadı.</div>
+{% endif %}
 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+
+  $(document).ready(function () {
+    $('#sidebarCollapse').on('click', function () {
+      $('#sidebar').toggleClass('active');
+    });
+  });
+
+</script>
+<script>
+  $(function () {
+    $("li").click(function () {
+      $("li").removeClass("active");
+      $(this).addClass("active");
+    });
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+  $(function () {
+    var a = 0;
+    $('.sub-hoverd').hover(function () {
+      $('.sub-hover').toggleClass("active");
+    });
+    $('.egit-hover4').hover(function () {
+      $('.egit-hover').toggleClass("active");
+    });
+    $('.ogr-ogr-hover').hover(function () {
+      $('.ogr-hover').toggleClass("active");
+    });
+    $('.online-hovers').hover(function () {
+      $('.online-hover').toggleClass("active");
+    });
+    $('.soru-hovers').hover(function () {
+      $('.soru-hover').toggleClass("active");
+    });
+    $('.veli-hovers').hover(function () {
+      $('.veli-hover').toggleClass("active");
+    });
+
+  });
+</script>
 {% endblock body %}
+<!-- {{user.account.restorant_id}} -->
