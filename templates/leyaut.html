@@ -9,650 +9,292 @@
         integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <meta charset="utf-8">
-
+    <script src="{% static 'smart-selects/admin/js/bindfields.js' %}"></script>
+    <script src="{% static 'smart-selects/admin/js/chainedfk.js' %}"></script>
+    <script src="{% static 'smart-selects/admin/js/chainedm2m.js' %}"></script>
 </head>
 
 <body>
     {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
-    <style>
-        p {
-            font-size: 1.1em;
-            font-weight: 300;
-            line-height: 1.7em;
-            color: #999;
-        }
+    <div class="wrapper">
+        <style>
+            @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
-        a,
-        a:hover {
-            color: inherit;
-            text-decoration: none;
-            transition: all 0.3s;
+            body {
+                font-family: 'Poppins', sans-serif;
+                background: #fafafa;
+            }
 
-        }
+            p {
+                font-family: 'Poppins', sans-serif;
+                font-size: 1.1em;
+                font-weight: 300;
+                line-height: 1.7em;
+                color: #999;
+            }
 
-        #sidebar.active {
-            margin-left: -250px;
-        }
+            a,
+            a:hover,
+            a:focus {
+                color: inherit;
+                text-decoration: none;
+                transition: all 0.3s;
+            }
 
-        .wrapper {
-            display: flex;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
+            .navbar {
+                padding: 15px 10px;
+                background: #fff;
+                border: none;
+                border-radius: 0;
+                margin-bottom: 40px;
+                box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+            }
 
-        #sidebar {
-            min-width: 250px;
-            max-width: 250px;
-            background: #F8775A;
-            color: #EDEEF3;
-            transition: all 0.3s;
-        }
+            .navbar-btn {
+                box-shadow: none;
+                outline: none !important;
+                border: none;
+            }
 
+            .line {
+                width: 100%;
+                height: 1px;
+                border-bottom: 1px dashed #ddd;
+                margin: 40px 0;
+            }
 
-        #sidebar .sidebar-header {
-            padding: 5px;
+            /* ---------------------------------------------------
+              SIDEBAR STYLE
+          ----------------------------------------------------- */
+            .wrapper {
+                display: flex;
+                width: 100%;
+                align-items: stretch;
+            }
 
-            border-bottom: 1px solid white;
-            margin-bottom: 15px;
-        }
-
-        #sidebar ul.components {
-            padding: 20px 0;
-        }
-
-        #sidebar ul p {
-            color: #EDEEF3;
-            padding: 10px;
-
-        }
-
-        #sidebar ul li a {
-            padding: 10px 0px 5px;
-
-            font-size: 1.1em;
-            display: block;
-        }
-
-        .navitem {
-            padding-left: 10px !important;
-            font-size: 1.1em;
-            display: block;
-        }
-
-        #sidebar ul li.active>a,
-
-        a[data-toggle="collapse"] {
-            position: relative;
-        }
-
-        .dropdown-toggle::after {
-            display: block;
-            position: absolute;
-            top: 50%;
-            right: 20%;
-            transform: translateY(-50%);
-        }
-
-        ul ul a {
-            font-size: 0.9em !important;
-            padding-left: 30px !important;
-        }
-
-        #content {
-            width: 100%;
-            padding: 20px;
-            min-height: 100vh;
-            transition: all 0.3s;
-        }
-
-
-        @media (max-width: 768px) {
             #sidebar {
-                margin-left: -250px;
+                min-width: 250px;
+                max-width: 250px;
+                background: #7386D5;
+                color: #fff;
+                transition: all 0.3s;
             }
 
             #sidebar.active {
-                margin-left: 0;
+                margin-left: -250px;
             }
 
-            #sidebarCollapse span {
-                display: none;
+            #sidebar .sidebar-header {
+                padding: 20px;
+                background: #6d7fcc;
             }
 
-            .okul-ism {
-                font-size: 15px;
-                margin-left: 3rem !important;
+            #sidebar ul.components {
+                padding: 20px 0;
+                border-bottom: 1px solid #47748b;
             }
 
-            .mavii {
-                margin-left: 90% !important;
+            #sidebar ul p {
+                color: #fff;
+                padding: 10px;
             }
 
-            .left {
-                margin: auto;
-                margin-bottom: 2px !important;
+            #sidebar ul li a {
+                padding: 10px;
+                font-size: 1.1em;
+                display: block;
             }
 
-        }
-
-        #topheader .navbar-nav li.active>a {
-            background-color: #333;
-            color: #EDEEF3;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-            background-color: #EDEEF3;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .container {
-            height: 100vh;
-        }
-
-        .side-nav .nav-menu {
-            list-style: none;
-            padding: 20px 0;
-            width: 100%;
-            background-color: #F8775A;
-        }
-
-        .side-nav .nav-item {
-            position: relative;
-            padding: 5px;
-            margin-top: 10px;
-        }
-
-        .nav-item.active {
-            background-color: #EDEEF3;
-            box-shadow: 0px -3px rgba(0, 0, 0, 0), 0px 3px rgba(0, 0, 0, 0);
-        }
-
-        .nav-item.active a {
-            color: #F8775A;
-        }
-
-        .nav-item a {
-            text-decoration: none;
-            color: #EDEEF3;
-        }
-
-        .menu-text {
-            padding: 0 20px;
-        }
-
-        .side-nav .nav-item.active::before {
-            content: "";
-            position: absolute;
-            background-color: transparent;
-            bottom: 100%;
-            right: 0;
-            height: 150%;
-            width: 20px;
-            border-bottom-right-radius: 25px;
-            box-shadow: 0 20px 0 0#EDEEF3;
-        }
-
-        .side-nav .nav-item.active::after {
-            content: "";
-            position: absolute;
-            background-color: transparent;
-            top: 100%;
-            right: 0;
-            height: 150%;
-            width: 20px;
-            border-top-right-radius: 25px;
-            box-shadow: 0 -20px 0 0 #EDEEF3;
-        }
-
-
-        .side-nav.active {
-            margin-left: -250px;
-        }
-
-        .sidebar-left {
-            padding-left: 15px;
-        }
-
-        .mavi {
-            background-color: #F8775A !important;
-            position: absolute;
-            color: white !important;
-        }
-
-        .mavii {
-            background-color: #F8775A !important;
-            color: white !important;
-            margin-left: 95%;
-        }
-
-        .navbar {
-            background-color: white !important;
-
-        }
-
-        .avatar {
-            background-color: white;
-            height: 13rem;
-        }
-
-        .avatar2 {
-            background-color: #F8775A;
-            height: 5rem;
-        }
-
-        .ogr-resmi {
-            border-radius: 100%;
-            width: 6rem;
-            margin: 2rem 0rem 0rem 5rem;
-        }
-
-        .isim {
-            color: black;
-            opacity: .8;
-            margin-top: 0.5rem;
-            text-align: center;
-
-        }
-
-        .isim1 {
-            color: black;
-            opacity: .6;
-            font-weight: bold;
-            font-size: 16px;
-            margin-left: 4.5rem;
-        }
-
-        .isim2 {
-            color: black;
-            opacity: .6;
-            font-weight: bold;
-            font-size: 16px;
-            margin-left: 3rem;
-        }
-
-        .okul-ism {
-            margin-left: 4rem;
-            position: absolute;
-            margin-top: 0.6rem;
-        }
-
-        .list-icon {
-            margin-left: 15px;
-        }
-
-        .icon {
-            color: #F8775A;
-            right: 10px;
-        }
-
-        .setting {
-            color: white;
-            text-align: center;
-            right: 6rem;
-        }
-
-        .exit {
-            background-color: red;
-            color: white;
-
-        }
-
-        .navitem1 {
-            margin-bottom: 15px;
-        }
-
-        .icon:hover {
-            color: white;
-        }
-
-        /* Duyuru */
-
-        .right-menu {
-            background-color: white;
-            border-radius: 10px;
-        }
-
-        .col-3 {
-            padding-right: 0px !important;
-            border-radius: 10px 10px 0px 0px;
-        }
-
-        .col-9 {
-            padding-left: 0px !important;
-            padding-right: 50px !important;
-        }
-
-        .anoncer-header {
-            padding: 10px 10px 10px 10px;
-            margin: 0px;
-            border-radius: 10px 10px 0px 0px;
-            color: white;
-            background-color: #F8775A;
-        }
-
-        .announcement-header {
-            font-size: 15px;
-            margin-bottom: 0px !important;
-            margin-top: 5px;
-            font-weight: bold;
-            color: black;
-        }
-
-        .announcement-text {
-            font-size: 13px;
-
-        }
-
-        .announcement-img {
-            border-radius: 100%;
-            height: 45px;
-            margin: 10px 0px 0px 5px;
-        }
-
-        .media {
-            margin-top: 5px;
-            margin-left: 8px;
-        }
-
-        .announcement-icon {
-            position: absolute;
-        }
-
-        .announcement-icon-text {
-            margin-left: 25px;
-        }
-
-        /* Kullanıcı Bilgi */
-
-        .left-menu {
-            background-color: white;
-            border-radius: 10px;
-        }
-
-        .user-info-h {
-            background-color: #F8775A;
-            color: white;
-            padding: 0px !important;
-            border-radius: 10px 10px 0px 0px;
-        }
-
-        .user-info-icon {
-            position: absolute;
-            padding: 10px;
-        }
-
-        .user-info-text {
-            padding-left: 40px;
-            padding-top: 14px;
-            padding-bottom: 10px;
-        }
-
-        .user-info-img {
-            height: 140px;
-            border-radius: 100%;
-            margin-top: 25px;
-            margin-left: 25px;
-        }
-
-        .info {
-            margin-top: 35px;
-        }
-
-        .mavı {
-            color: #F8775A;
-        }
-
-        .buyuk {
-            font-weight: bold;
-        }
-
-        .left {
-            margin-bottom: 50px;
-        }
-
-        /*asdasd*/
-        .announcement-headerr {
-            font-size: 15px;
-            margin-bottom: 0px !important;
-            margin-top: 10px;
-            font-weight: bold;
-            color: black;
-        }
-
-        .announcement-imgg {
-            margin: 15px 0px 0px 5px;
-            margin-right: 60px;
-        }
-
-        .right-menuu {
-            background-color: white;
-            ;
-            border-radius: 3px;
-        }
-
-        .anoncer-headerr {
-            padding: 10px 10px 10px 10px;
-            margin: 0px;
-            border-radius: 3px 3px 0px 0px;
-            color: white;
-            background-color: #F8775A;
-        }
-
-        .links {
-            font-weight: 600;
-            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-            color: #3c8dbc;
-        }
-
-        .items {
-            padding: 10px 0;
-            padding-bottom: 15px;
-            list-style: none;
-            border-bottom: 1px solid #f4f4f4;
-        }
-
-        .left-imgs {
-            float: left;
-        }
-
-        .left-imgs {
-            width: 50px;
-            height: 50px;
-            vertical-align: middle;
-        }
-
-        .right-texts {
-            margin-left: 60px;
-        }
-
-        .right-span {
-            display: block;
-            color: #999;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            font-size: 14px;
-        }
-
-        /*Ders Programı*/
-
-        .js-lesson {
-            font-size: 17px;
-            font-weight: bold;
-            margin-bottom: 1px;
-        }
-
-        .js-lessons {
-            font-size: 17px;
-            margin-bottom: 1px;
-        }
-
-        .js-hour {
-            font-size: 13px;
-            margin-bottom: 1px;
-        }
-
-        .js-teacher {
-            font-size: 14px;
-        }
-
-        .table thead tr th {
-            width: 10%;
-            padding: .75rem;
-        }
-
-        .js-table {
-            border-radius: 10px;
-            box-shadow: 0 2px 6px hsl(0deg 0% 39% / 20%);
-        }
-
-        .js-td {
-            vertical-align: middle !important;
-        }
-
-        .js-table-top {
-            background-color: #F8775A;
-        }
-
-        .js-query-text {
-            font-size: 1.5rem;
-        }
-
-        [data-href] {
-            cursor: pointer;
-        }
-
-        .siderbar-profile-pic {
-            padding-top: 10px;
-            text-align: center;
-        }
-
-        .profile-img-circle {
-            background: #fff;
-            z-index: 1000;
-            position: inherit;
-            border: 2px solid rgba(52, 73, 94, .44);
-            border-radius: 50%;
-            display: block;
-            width: 80px;
-        }
-
-        .siderbar-profile-details {
-            text-align: center;
-            color: #e2e2e2;
-            padding-top: 8px;
-        }
-
-        .siderbar-profile-name {
-            white-space: nowrap;
-            font-size: 16px;
-            font-weight: 600;
-            line-height: 20px;
-        }
-
-        .siderbar-profile-position {
-            font-size: 12px;
-            line-height: 14px;
-        }
-
-        .sidebar-profile-buttons {
-            display: flex;
-            place-content: space-around;
-            font-size: 18px;
-            width: 190px;
-            text-align: center;
-            margin: auto;
-        }
-
-        .siderbar-profile-pic {
-            padding-top: 10px;
-            text-align: center;
-        }
-
-        .box-center {
-            margin: 0 auto;
-        }
-
-        .sidebar-brand {
-            display: inline-block;
-            width: 100%;
-            text-align: left;
-            padding-left: 20px;
-            height: 70px;
-            line-height: 70px;
-            background-color: rgba(0, 0, 0, .15);
-        }
-
-        .dropdown-item:hover {
-            color: black !important;
-        }
-
-        .syllabus {
-            margin-top: 2rem;
-        }
-    </style>
-    <div class="wrapper">
-        {% include "includes/menu.html" %}
-        {% block body %}
-
-        {% endblock body %}
+            #sidebar ul li a:hover {
+                color: #7386D5;
+                background: #fff;
+            }
+
+            #sidebar ul li.active>a,
+            a[aria-expanded="true"] {
+                color: #fff;
+                background: #6d7fcc;
+            }
+
+            a[data-toggle="collapse"] {
+                position: relative;
+            }
+
+            .dropdown-toggle::after {
+                display: block;
+                position: absolute;
+                top: 50%;
+                right: 20px;
+                transform: translateY(-50%);
+            }
+
+            ul ul a {
+                font-size: 0.9em !important;
+                padding-left: 30px !important;
+                background: #6d7fcc;
+            }
+
+            ul.CTAs {
+                padding: 20px;
+            }
+
+            ul.CTAs a {
+                text-align: center;
+                font-size: 0.9em !important;
+                display: block;
+                border-radius: 5px;
+                margin-bottom: 5px;
+            }
+
+            a.download {
+                background: #fff;
+                color: #7386D5;
+            }
+
+            a.article,
+            a.article:hover {
+                background: #6d7fcc !important;
+                color: #fff !important;
+            }
+
+            /* ---------------------------------------------------
+              CONTENT STYLE
+          ----------------------------------------------------- */
+            #content {
+                width: 100%;
+                min-height: 100vh;
+                transition: all 0.3s;
+            }
+
+            @media (max-width: 768px) {
+                #sidebar {
+                    margin-left: -250px;
+                }
+
+                #sidebar.active {
+                    margin-left: 0;
+                }
+
+                #sidebarCollapse span {
+                    display: none;
+                }
+            }
+        </style>
+        <div class="wrapper">
+            <!-- Sidebar  -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Bootstrap Sidebar</h3>
+                </div>
+
+                <ul class="list-unstyled components">
+                    <p>Dummy Heading</p>
+                    <li class="active">
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
+                            class="dropdown-toggle">Ürün</a>
+                        <ul class="collapse list-unstyled" id="homeSubmenu">
+                            <li>
+                                <a href="/">Home 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Home 2</a>
+                            </li>
+                            <li>
+                                <a href="#">Home 3</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/catlist">Ürünler</a>
+                    </li>
+                    <li>
+                        <a href="#pageSubmenu" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                            aria-expanded="false" class="dropdown-toggle">Pages</a>
+                        <ul class="dropdown-menu collapse list-unstyled" aria-labelledby="dropdownMenuButton1">
+                            <li>
+                                <a href="#">Page 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Page 2</a>
+                            </li>
+                            <li>
+                                <a href="#">Page 3</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/">Portfolio</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+
+                <ul class="list-unstyled CTAs">
+                    <li>
+                        <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download
+                            source</a>
+                    </li>
+                    <li>
+                        <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
+                    </li>
+                </ul>
+            </nav>
+            <div id="content" c>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
+                        <button type="button" id="sidebarCollapse" class="btn btn-info">
+                            <i class="fas fa-align-left"></i>
+                        </button>
+                        <div class="d-flex align-items-center">
+                            <div class="btn-group float-end">
+                                <a href="#" class="dropdown-toggle text-decoration-none text-light"
+                                    data-bs-toggle="dropdown">
+                                    <img src="https://uygulama.faturaport.com/assets/img/empty_profile/erkek.svg"
+                                        width="42" alt="" srcset="">
+                                    <span class="text-dark" style="margin-left: 10px; margin-top: 10px;">{{ user.get_username }}</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a href="#" class="dropdown-item"><i class="bi bi-lock-fill"></i> Change
+                                            Password</a></li>
+                                    <li><a href="#" class="dropdown-item"><i class="bi bi-gear-fill"></i> Admin
+                                            Setion</a></li>
+                                    <li><a href="#" class="dropdown-item"><i class="bi bi-gear-wide-connected"></i> IMAP
+                                            Settings</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a href="#" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Sign
+                                            out</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                {% block body %}
+
+                {% endblock body %}
+            </div>
+        </div>
+
     </div>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/v5.3.1/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/v5.3.1/js/bootstrap.min.js"></script>
     <script>
 
         $(document).ready(function () {
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
             });
-        });
-
-    </script>
-    <script>
-        $(function () {
-            $("li").click(function () {
-                $("li").removeClass("active");
-                $(this).addClass("active");
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-        $(function () {
-            var a = 0;
-            $('.sub-hoverd').hover(function () {
-                $('.sub-hover').toggleClass("active");
-            });
-            $('.egit-hover4').hover(function () {
-                $('.egit-hover').toggleClass("active");
-            });
-            $('.ogr-ogr-hover').hover(function () {
-                $('.ogr-hover').toggleClass("active");
-            });
-            $('.online-hovers').hover(function () {
-                $('.online-hover').toggleClass("active");
-            });
-            $('.soru-hovers').hover(function () {
-                $('.soru-hover').toggleClass("active");
-            });
-            $('.veli-hovers').hover(function () {
-                $('.veli-hover').toggleClass("active");
-            });
-
-        });
-    </script>
+        });</script>
 </body>
 
 </html>

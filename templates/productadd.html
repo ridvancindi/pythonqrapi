@@ -1,0 +1,40 @@
+{% extends "leyaut.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block body %}
+
+<div class="container">
+    <form method="POST">
+        <div class="mb-3">
+            <label class="form-label">Kategori</label>
+            <select class="form-select" name="category" aria-label="Default select example">
+                {% for model in models %}
+                <option value="{{model.id}}">{{model.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Ürün İsmi</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Ürün İsmi" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Ürün Resmi</label>
+            <br>
+            {{ form.product_Img}}
+        </div>
+        
+        <div class="mb-3 ">
+            <label class="-label" for="rememberMe">Ürün Fiyatı</label>
+            <input type="text" class="form-control" name="price" id="price" />
+        </div>
+        <div class="mb-3 ">
+            <label class="-label" for="rememberMe">pro_contents</label>
+            <input type="text" class="form-control" name="pro_contents" id="pro_contents" />
+        </div>
+
+        <div class="modal-footer d-block">
+            <button type="submit" value="submit" class="btn btn-warning float-end">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock body %}

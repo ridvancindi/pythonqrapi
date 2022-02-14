@@ -44,8 +44,14 @@ def ProductApi(request,id,cat_id):
         return JsonResponse("Deleted Successfully",safe=False)
 @csrf_exempt
 @login_required(login_url = "/")
-def type_modele_new(request,rest_Code):
+def productadd(request,rest_Code):
     form = ProductForm(rest_Code)  
+    rest_Code = request.user.account.restorant_id
+    models = Category.objects.filter(restorant_id=rest_Code)
+    context = {
+        'form': form,
+        'models':models
+    } 
     if request.method == "POST":
         category = request.POST["category"]
         name = request.POST['name']
@@ -56,7 +62,7 @@ def type_modele_new(request,rest_Code):
     else: 
         form = ProductForm(rest_Code)  
 
-    return render(request, 'expenses.html', {'form': form})
+    return render(request, 'productadd.html',context)
 @login_required(login_url = "/")
 def home(request):
     rest_Code = request.user.account.restorant_id
