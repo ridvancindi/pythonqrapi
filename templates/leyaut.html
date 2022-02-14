@@ -603,19 +603,56 @@
     <div class="wrapper">
         {% include "includes/menu.html" %}
         {% block body %}
-        
+
         {% endblock body %}
-    </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $("li").click(function () {
+                $("li").removeClass("active");
+                $(this).addClass("active");
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+        $(function () {
+            var a = 0;
+            $('.sub-hoverd').hover(function () {
+                $('.sub-hover').toggleClass("active");
+            });
+            $('.egit-hover4').hover(function () {
+                $('.egit-hover').toggleClass("active");
+            });
+            $('.ogr-ogr-hover').hover(function () {
+                $('.ogr-hover').toggleClass("active");
+            });
+            $('.online-hovers').hover(function () {
+                $('.online-hover').toggleClass("active");
+            });
+            $('.soru-hovers').hover(function () {
+                $('.soru-hover').toggleClass("active");
+            });
+            $('.veli-hovers').hover(function () {
+                $('.veli-hover').toggleClass("active");
+            });
+
+        });
+    </script>
 </body>
 
 </html>

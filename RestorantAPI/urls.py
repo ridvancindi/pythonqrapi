@@ -8,7 +8,7 @@ urlpatterns=[
     # re_path(r'^restorantApi/',views.RestorantApi),
     re_path(r'^categoryApi$',views.CategoryApi),
     re_path(r'^categoryApi/([0-9]+)$',views.CategoryApi),
-    re_path(r'asd/([0-9]+)$',views.type_modele_new),
+    path('asd/<str:rest_Code>',views.type_modele_new),
     re_path('home',views.home,name="home"),
     re_path('catlist',views.catList,name="catlist"),
     path('restorantApi/<str:id>',views.RestorantApi),

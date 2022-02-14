@@ -17,200 +17,177 @@
     </div>
 </div> -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
   <title>Login V1</title>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+    integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  <style>
+    body {
+      color: #333333;
+      font-family: "Open Sans", sans-serif;
+      padding: 0 px !important;
+      margin: 0 px !important;
+      direction: "ltr";
+      font-size: 14px;
+    }
+
+    .banners {
+      height: 172 px;
+      padding: 30 px 15 px;
+      overflow: hidden;
+      background-color: orange;
+    }
+
+    .banners img {
+      height: auto;
+      width: 110 px;
+      max-width: 150 px;
+      float: right;
+      margin-right: -65 px;
+      margin-top: -30 px;
+    }
+
+    .banners h4 {
+      color: #fff;
+      font-weight: 600;
+      margin: 0 0 10 px !important;
+      margin-top: 0.7em;
+    }
+
+    .banners p {
+      color: #fff;
+      margin: 0 0 10 px !important;
+    }
+
+
+    .input-icon {
+      position: relative;
+      left: 0;
+    }
+
+    .form-control {
+      width: 100%;
+      height: 42px;
+      line-height: 32px;
+      padding: 6px 12px;
+      background-color: #f3f4f9 !important;
+      border: 0 !important;
+      border-radius: 6px !important;
+      box-shadow: 0 0 0 !important;
+      color: #555;
+      display: block;
+      font-size: 14px;
+    }
+
+
+    .input-icon>i {
+      padding-top: 2px !important;
+      color: #2eabe1;
+      width: 20px;
+      font-size: 20px;
+      margin: 9px 8px 8px;
+      z-index: 1;
+      text-align: center;
+      left: 0;
+      display: block;
+      position: absolute;
+      line-height: 18px !important;
+    }
+
+    .input-icon>.form-control {
+      padding-left: 35px;
+    }
+
+    .user-form {
+      background-color: #fff;
+      width: 100%;
+      max-width: 490px;
+      margin: 0 auto;
+      padding: 20px 30px 0;
+      border-radius: 6px !important;
+      overflow: hidden;
+    }
+
+    .user-form .btn.bgreen {
+      color: white;
+      background-color: orange !important;
+      border-color: rgb(15, 186, 186) !important;
+    }
+
+    .user-form .btn {
+      border-radius: 6 px !important;
+      box-shadow: 0 2px 6px rgb(100 100 100 / 20%) !important;
+      padding: 9 px;
+      font-size: 14px;
+      font-weight: 600;
+      width: 150 px;
+      border: 0;
+      margin: 15 px 0;
+    }
+
+    @media only screen and (min-width: 992px) {
+      .user-form {
+        margin-top: 15%;
+      }
+    }
+
+    .forget {
+      text-align: center;
+      padding: 10px 0;
+      background-color: orange;
+      margin: 0;
+      left: 0;
+      bottom: 0;
+      position: fixed;
+      width: 100%;
+      z-index: 999;
+    }
+  </style>
 </head>
 
-<body>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-  crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
-  {% load bootstrap5 %}
-  {% bootstrap_css %}
-  {% bootstrap_javascript %}
-  <style>
-    :root {
-    --body_gradient_left: #7200D0;
-    --body_gradient_right: #C800C1;
-    --form_bg: #ffffff;
-    --input_bg: #E5E5E5;
-    --input_hover: #eaeaea;
-    --submit_bg: #1FCC44;
-    --submit_hover: #40e263;
-    --icon_color: #6b6b6b;
-}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-
-body {
-    /* make the body full height*/
-    height: 100vh;
-    /* set our custom font */
-    font-family: 'Roboto',
-        sans-serif;
-    /* create a linear gradient*/
-    background-image: linear-gradient(to right, var(--body_gradient_left), var(--body_gradient_right));
-    display: flex;
-}
-
-#form_wrapper {
-    width: 1000px;
-    height: 700px;
-    /* this will help us center it*/
-    margin: auto;
-    background-color: var(--form_bg);
-    border-radius: 50px;
-    /* make it a grid container*/
-    display: grid;
-    /* with two columns of same width*/
-    grid-template-columns: 1fr 1fr;
-    /* with a small gap in between them*/
-    grid-gap: 5vw;
-    /* add some padding around */
-    padding: 5vh 15px;
-}
-
-#form_left {
-    /* center the image */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#form_left img {
-    width: 350px;
-    height: 350px;
-}
-
-#form_right {
-    padding: 10% 5%;
-}
-
-h1,
-span {
-    text-align: center;
-}
-
-.input_container {
-    background-color: var(--input_bg);
-    margin-bottom: 30px;
-    display: flex;
-    align-items: center;
-    padding-left: 20px;
-}
-
-.input_container:hover {
-    background-color: var(--input_hover);
-}
-
-.input_container,
-#input_submit {
-    height: 60px;
-    /* make the borders more round */
-    border-radius: 30px;
-    width: 100%;
-}
-
-.input_field {
-    /* customize the input tag with lighter font and some padding*/
-    color: var(--icon_color);
-    background-color: inherit;
-    width: 90%;
-    border: none;
-    font-size: 1.3rem;
-    font-weight: 400;
-    padding-left: 30px;
-}
-
-.input_field:hover,
-.input_field:focus {
-    /* remove the outline */
-    outline: none;
-}
-
-#input_submit {
-    /* submit button has a different color and different padding */
-    background-color: var(--submit_bg);
-    padding-left: 0;
-    font-weight: bold;
-    color: white;
-    text-transform: uppercase;
-}
-
-#input_submit:hover {
-    background-color: var(--submit_hover);
-    /* simple color transition on hover */
-    transition: background-color,
-        1s;
-    cursor: pointer;
-}
-
-/* shift it a bit lower */
-#create_account {
-    display: block;
-    position: relative;
-    top: 30px;
-}
-
-a {
-    /* remove default underline */
-    text-decoration: none;
-    color: var(--submit_bg);
-    font-weight: bold;
-}
-
-a:hover {
-    color: var(--submit_hover);
-}
-
-i {
-    color: var(--icon_color);
-}
-.input_forget{
-  margin-bottom: 1.5em;
-}
-/* make it responsive */
-@media screen and (max-width:768px) {
-
-    /* make the layout  a single column and add some margin to the wrapper */
-    #form_wrapper {
-        grid-template-columns: 1fr;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-    /* on small screen we don't display the image */
-    #form_left {
-        display: none;
-    }
-}
-  </style>
-  
-  <div id="form_wrapper">
-    <div id="form_left">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Circle-icons-computer.svg/1200px-Circle-icons-computer.svg.png" alt="computer icon">
-    </div>
-    <form autocomplete="off" method="post">
-    <div id="form_right">
-      <h1>Member Login</h1>
-      <div class="input_container">
-        <i class="fas fa-envelope"></i>
-        <input autocomplete="off" placeholder="Kullanıcı Adı" type="username" name="username" id="username" class='input_field'>
+<body class="login">
+  <header class="p-3 banners">
+    <img src="https://i.hizliresim.com/4w8lbs5.png" width="106" style="margin-right: 0px; margin-top: 0px;">
+    <h4>Admin Panele Giriş</h4>
+    <p style="font-size: 13px">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis, explicabo?</p>
+  </header>
+  <div class="user-form">
+    <form method="post">
+      <div class="login-form">
+        <div class="form-group mb-4 mt-2">
+          <div class="input-icon">
+            <i class="uil uil-user"></i>
+            <input name="username" type="text" id="txtUserName" class="form-control placeholder-no-fix "
+              autocomplete="off" placeholder="Kullanıcı E-Posta">
+          </div>
+        </div>
+        <div class="form-group mb-4">
+          <div class="input-icon">
+            <i class="uil uil-lock"></i>
+            <input name="password" type="password" id="txtPassword" class="form-control placeholder-no-fix "
+              autocomplete="off" placeholder="Şifreniz">
+          </div>
+        </div>
+        <div class="form-group float-end col-xs-6 text-right">
+          <button type="submit" class="btn bgreen p-2">Giriş Yap</button>
+        </div>
       </div>
-      <div class="input_container">
-        <i class="fas fa-lock"></i>
-        <input placeholder="Şifre" type="password" name="password" id="field_password" class='input_field'>
-      </div>
-      <input type="submit" value="Login" id='input_submit' class='input_field input_forget'>
-      <span class="forget"><a href="#"> Kullanıcı Adı / Şifremi ?</a> Unuttum</span>
-    </div></form>
+    </form>
+  </div>
+
+  <div class="forget">
+    <a style="text-decoration: none; color: white" href="">Şifrenizi Unuttuysanız Yetkili İle İletişime Geçiniz</a>
+</div>
   </div>
 
 </body>

@@ -1,0 +1,198 @@
+{% load crispy_forms_tags %}
+{% block body %}
+<!-- <div class="container">
+    <div class="row" style="margin-top:100px;">
+        <div class="col-md-6 offset-md-3">
+            <h3>Harcamalar</h3>
+            <hr>
+            <form method="POST">
+                {{ form.category}}
+                <input type="text" name="name" id="name">
+                <input type="text" name="product_Img" id="product_Img">
+                <input type="text" name="price" id="price">
+                <input type="text" name="pro_contents" id="pro_contents">
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+</div> -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login V1</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <style>
+        body {
+            color: #333333;
+            font-family: "Roboto";
+            padding: 0 px !important;
+            margin: 0 px !important;
+            direction: "ltr";
+            font-size: 14px;
+            background-color: #e9ecf3 !important;
+        }
+
+        .banners {
+            height: 172 px;
+            padding: 30 px 15 px;
+            overflow: hidden;
+            background-color: orange;
+            margin: -20px -30px 30px;
+        }
+
+        .banners img {
+            height: auto;
+            width: 110 px;
+            max-width: 150 px;
+            float: right;
+            margin-right: -65 px;
+            margin-top: -30 px;
+        }
+
+        .banners h4 {
+            color: #fff;
+            font-weight: 600;
+            margin: 0 0 10 px !important;
+            margin-top: 0.7em;
+        }
+
+        .banners p {
+            color: #fff;
+            margin: 0 0 10 px !important;
+        }
+
+
+        .input-icon {
+            position: relative;
+            left: 0;
+        }
+
+        .form-control {
+            width: 100%;
+            height: 42px;
+            line-height: 32px;
+            padding: 6px 12px;
+            background-color: #f3f4f9 !important;
+            border: 0 !important;
+            border-radius: 6px !important;
+            box-shadow: 0 0 0 !important;
+            color: #555;
+            display: block;
+            font-size: 14px;
+        }
+
+
+        .input-icon>i {
+            padding-top: 2px !important;
+            color: #2eabe1;
+            width: 20px;
+            font-size: 20px;
+            margin: 9px 8px 8px;
+            z-index: 1;
+            text-align: center;
+            left: 0;
+            display: block;
+            position: absolute;
+            line-height: 18px !important;
+        }
+
+        .input-icon>.form-control {
+            padding-left: 35px;
+        }
+
+        .user-form .btn.bgreen {
+            color: white;
+            background-color: orange !important;
+            border-color: rgb(15, 186, 186) !important;
+        }
+
+        .user-form .btn {
+            border-radius: 6 px !important;
+            box-shadow: 0 2px 6px rgb(100 100 100 / 20%) !important;
+            padding: 9 px;
+            font-size: 14px;
+            font-weight: 600;
+            width: 150 px;
+            border: 0;
+            margin: 15 px 0;
+        }
+
+        .user-form {
+            background-color: #fff;
+            width: 100%;
+            max-width: 490px;
+            margin: 0 auto;
+            padding: 20px 30px 20px;
+            border-radius: 6px !important;
+            box-shadow: 0 5px 30px 0 rgb(33 43 54 / 8%);
+            overflow: hidden;
+            -webkit-transition: all 400ms;
+            transition: all 400ms;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .user-form form {
+            display: grid;
+        }
+
+        .forget {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #f3f4f9;
+            margin: 0px -30px -20px;
+        }
+    </style>
+</head>
+
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<body class="login">
+    <div class="user-form">
+        <header class="p-3 banners">
+            <img src="https://i.hizliresim.com/4w8lbs5.png" width="106" style="margin-right: 0px; margin-top: 0px;">
+            <h4>Admin Panele Giriş</h4>
+            <p style="font-size: 13px">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis, explicabo?
+            </p>
+        </header>
+        <form method="post">
+            <div class="login-form">
+                <div class="form-group mb-4 mt-2">
+                    <div class="input-icon">
+                        <i class="uil uil-user"></i>
+                        <input name="username" type="text" id="txtUserName" class="form-control placeholder-no-fix "
+                            autocomplete="off" placeholder="Kullanıcı Adı">
+                    </div>
+                </div>
+                <div class="form-group mb-4">
+                    <div class="input-icon">
+                        <i class="uil uil-lock"></i>
+                        <input name="password" type="password" id="txtPassword" class="form-control placeholder-no-fix "
+                            autocomplete="off" placeholder="Şifreniz">
+                    </div>
+                </div>
+                <div class="form-group float-end col-xs-12 text-right">
+                    <button type="submit" class="btn bgreen p-2">Giriş Yap</button>
+                </div>
+            </div>
+        </form>
+        <div class="forget mt-3">
+            <a style="text-decoration: none; color: rgb(250, 170, 21);" href="">Şifrenizi Unuttuysanız Yetkili İle İletişime Geçiniz</a>
+        </div>
+    </div>
+    </div>
+
+</body>
+
+</html>
+{% endblock body %}

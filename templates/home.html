@@ -1,22 +1,40 @@
 {% extends "leyaut.html" %}
-{% load crispy_forms_tags %}
-
 {% block body %}
-<!-- <div class="container">
-    <div class="row" style="margin-top:100px;">
-        <div class="col-md-6 offset-md-3">
-            <h3>Harcamalar</h3>
-            <hr>
-            <form method="POST">
-                {{ form.category}}
-                <input type="text" name="name" id="name">
-                <input type="text" name="product_Img" id="product_Img">
-                <input type="text" name="price" id="price">
-                <input type="text" name="pro_contents" id="pro_contents">
-                <input type="submit" value="Submit">
-            </form>
+{% load bootstrap5 %}
+div class="container-fluid">
+<div class="card shadow ">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Category Listesi</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Categori İsmi</th>
+                        <th>Position</th>
+                        <th>Office</th>
+                        <th>Age</th>
+                        <th>Start date</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>{% for model in models %}
+                        <td><a class="link-dark"
+                                href="/product/{{user.account.restorant_id}}/{{model.id}}">{{model.name}}</a>
+                        </td>
+                        <td>Accountant</td>
+                        <td>Tokyo</td>
+                        <td>63</td>
+                        <td><a class="ml-1" href="/edit/{{model.cat_Code}}"><i class="fa fa-search"></i> İncele</a></td>
+                        <!-- <td><a class="btn btn-danger rounded ml-1" href="/delete/{{model.cat_Code}}">Sil</a></td> -->
+                    </tr>
+                    </a>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
-</div> -->
-
+</div>
 {% endblock body %}

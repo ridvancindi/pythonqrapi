@@ -2,45 +2,172 @@
 {% block body %}
 
 <div class="container">
-{% if models %}
-<div class="w3-quarter ">
+  {% if models %}
+  <div class="w3-quarter ">
     <table class=" table table-bordered table-dark " style="margin-top:5em;">
-        <thead>
-          <tr>
-            <th scope="col">Ürün İsmi</th>
-            <th scope="col">Ürün Resmi</th>
-            <th scope="col">Üürn Fiyatı</th>
-            <th scope="col">Ürün İçeriği</th>
-            <th scope="col">Ürün İçeriği</th>
-            <th scope="col">Düzenle</th>
-            <th scope="col">Sil</th>
-          </tr>
-        </thead>
-        <tbody>
-            
-          <tr >{% for model in models %}
-            <td>{{model.name}}</td>
-            <td>{{model.product_Img}}</td>
-            <td>{{model.price}} ₺</td>
-            <td>{{model.pro_contents}}</td>
-            <td>{{user.account.restorant_id}}</td>
-        
-              <td><a class="btn btn-success rounded ml-1" href="/edit/{{model.cat_Code}}">Düzenle</a></td>
-              <td><a class="btn btn-danger rounded ml-1" href="/delete/{{model.cat_Code}}">Sil</a></td>
-          </tr>
+      <thead>
+        <tr>
+          <th scope="col">Ürün İsmi</th>
+          <th scope="col">Ürün Resmi</th>
+          <th scope="col">Üürn Fiyatı</th>
+          <th scope="col">Ürün İçeriği</th>
+          <th scope="col">Ürün İçeriği</th>
+          <th scope="col">Düzenle</th>
+          <th scope="col">Sil</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>{% for model in models %}
+          <td>{{model.name}}</td>
+          <td>{{model.product_Img}}</td>
+          <td>{% if model.is_active %}<span class="badge bg-success">Aktif</span>{% else %}
+            <span class="badge bg-danger">Pasif</span>
+            {% endif %}
+          </td>
+
+          <td>{{model.price}} ₺</td>
+          <td>{{model.pro_contents}}</td>
+          <td>{{user.account.restorant_id}}</td>
+          <td><a class="btn btn-success rounded ml-1" href="/edit/{{model.cat_Code}}">Düzenle</a></td>
+          <td><a class="btn btn-danger rounded ml-1" href="/delete/{{model.cat_Code}}">Sil</a></td>
+        </tr>
         </a>
-          {% endfor %}
-        
-        </tbody>
-      </table>
+        {% endfor %}
+
+      </tbody>
+    </table>
   </div>
-    {% else %}
-    <div class="alert alert-danger">Bulunamadı.</div>
-    {% endif %}
-</div>
+  <div class="row g-3 mb-3">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div id="myDataTable_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+            <div class="row">
+              <div class="col-sm-12">
+                <table id="myDataTable"
+                  class="table table-hover align-middle mb-0 nowrap dataTable no-footer dtr-inline" style="width: 100%;"
+                  role="grid" aria-describedby="myDataTable_info">
+                  <thead>
+                    <tr role="row">
+                      <th class="sorting_asc" tabindex="0"
+                        style="width: 91.2px;">
+                        Id</th>
+                      <th class="sorting" tabindex="0"
+                        style="width: 244.2px;" >Ürün
+                      </th>
+                      <th class="dt-body-right sorting"
+                        style="width: 244.2px;">
+                        Fiyatı
+                      </th>
+                      <th class="sorting" tabindex="0" aria-controls="myDataTable" rowspan="1" colspan="1"
+                        style="width: 140.2px;" aria-label="Status: activate to sort column ascending">Status</th>
+                      <th class="dt-body-right sorting" tabindex="0" aria-controls="myDataTable" rowspan="1" colspan="1"
+                        style="width: 168.2px;" aria-label="Action: activate to sort column ascending">
+                        Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for model in models %}
+                    <tr role="row" class="even">
+                      <td tabindex="0" class="sorting_1"><strong>#0002</strong></td>
+                      <td>{{model.name}}</td>
+                      <td class=" dt-body-right">{% if model.is_active %}<span class="badge bg-success">Aktif</span>{% else %}
+                        <span class="badge bg-danger">Pasif</span>
+                        {% endif %}</td>
+                      <td>{% if model.discount_price %}<span class="badge text-info">{{model.discount_price}} ₺</span><span style="text-decoration:line-through" class="badge text-dark">{{model.price}}₺</span>{% else %}
+                        <span class="badge text-info">{{model.price}} ₺</span>
+                        {% endif %}</td>
+                      <td class=" dt-body-right">
+                        <div class="btn-group" role="group" aria-label="Basic outlined example">
+                          <a href="categories-edit.html" class="btn btn-outline-secondary"><i
+                              class="icofont-edit text-success"></i></a>
+                          <button type="button" class="btn btn-outline-secondary deleterow"><i
+                              class="icofont-ui-delete text-danger"></i></button>
+                        </div>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class=" col-md-5">
+                <div class="dataTables_info" id="myDataTable_info" role="status" aria-live="polite">Showing 1 to 10
+                  of
+                  13 entries</div>
+              </div>
+              <div class="col-md-7">
+                <div class="dataTables_paginate paging_simple_numbers" id="myDataTable_paginate">
+                  <ul class="pagination">
+                    <li class="paginate_button page-item previous disabled" id="myDataTable_previous"><a href="#"
+                        aria-controls="myDataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                    <li class="paginate_button page-item active"><a href="#" aria-controls="myDataTable" data-dt-idx="1"
+                        tabindex="0" class="page-link">1</a></li>
+                    <li class="paginate_button page-item "><a href="#" aria-controls="myDataTable" data-dt-idx="2"
+                        tabindex="0" class="page-link">2</a></li>
+                    <li class="paginate_button page-item next" id="myDataTable_next"><a href="#"
+                        aria-controls="myDataTable" data-dt-idx="3" tabindex="0" class="page-link">Next</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+  {% else %}
+  <div class="alert alert-danger">Bulunamadı.</div>
+  {% endif %}
 </div>
 
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>
+
+  $(document).ready(function () {
+    $('#sidebarCollapse').on('click', function () {
+      $('#sidebar').toggleClass('active');
+    });
+  });
+
+</script>
+<script>
+  $(function () {
+    $("li").click(function () {
+      $("li").removeClass("active");
+      $(this).addClass("active");
+    });
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+  $(function () {
+    var a = 0;
+    $('.sub-hoverd').hover(function () {
+      $('.sub-hover').toggleClass("active");
+    });
+    $('.egit-hover4').hover(function () {
+      $('.egit-hover').toggleClass("active");
+    });
+    $('.ogr-ogr-hover').hover(function () {
+      $('.ogr-hover').toggleClass("active");
+    });
+    $('.online-hovers').hover(function () {
+      $('.online-hover').toggleClass("active");
+    });
+    $('.soru-hovers').hover(function () {
+      $('.soru-hover').toggleClass("active");
+    });
+    $('.veli-hovers').hover(function () {
+      $('.veli-hover').toggleClass("active");
+    });
+
+  });
+</script>
 {% endblock body %}
