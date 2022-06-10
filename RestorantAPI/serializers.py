@@ -1,7 +1,5 @@
-from itertools import product
 from rest_framework import serializers
 from RestorantAPI.models import *
-from versatileimagefield.serializers import VersatileImageFieldSerializer
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:

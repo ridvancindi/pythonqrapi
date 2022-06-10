@@ -32,11 +32,11 @@ def index(request):
         password = request.POST['password']
         user = authenticate(username = username ,password = password)
         if user is None:
-            messages.error(request,"Kullanıcı Hadı Veya Parola Hatalı")
-            return render(request,"index.html",context)
-        messages.success(request,"Başarıyla Giriş Yaptınız")
-        login(request,user)
-        return redirect("home")
+            messages.error(request,"Kullanıcı Adı Veya Parola Hatalı")
+            print("de")
+        else:
+            login(request,user)
+            return redirect("home")
     if is_mobile==True:
         return render(request,"loginmb.html",context)
     else :
@@ -59,5 +59,4 @@ def register(request):
     return render(request,"register.html",context)
 def logoutuser(request):
     logout(request)
-    messages.success(request,"Başarıyla Çıkış Yaptınız")
     return redirect("/")

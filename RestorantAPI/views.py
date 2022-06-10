@@ -8,7 +8,7 @@ from RestorantAPI.forms import CategoryForm, ProductForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from RestorantAPI.models import *
-from RestorantAPI.serializers import *
+from RestorantAPI.serializers import CategorySerializer, ProductSerializer, RestorantSerializer
 from User.models import Account
 # Create your views here.
 @csrf_exempt
@@ -45,7 +45,7 @@ def ProductApi(request,id,cat_id):
 @csrf_exempt
 @login_required(login_url = "/")
 def productadd(request,rest_Code):
-    form = ProductForm(rest_Code)  
+    form = ProductForm(rest_Code,data=request.POST,files=request.FILES)  
     rest_Code = request.user.account.restorant_id
     models = Category.objects.filter(restorant_id=rest_Code)
     context = {
@@ -53,16 +53,35 @@ def productadd(request,rest_Code):
         'models':models
     } 
     if request.method == "POST":
-        category = request.POST["category"]
-        name = request.POST['name']
-        product_Img = request.POST.get('product_Img', False)
-        price = request.POST.get('price', False)
-        pro_contents = request.POST.get('pro_contents', False)
-        Product.objects.create(restorant_id=rest_Code,category_id=category,name=name,product_Img=product_Img,price=price,pro_contents=pro_contents)
+        if form.is_valid :
+            category = request.POST["category"]
+            name = request.POST['name']
+            product_Img = request.FILES.get('product_Img')
+            price = request.POST.get('price', False)
+            pro_contents = request.POST.get('pro_contents', False)
+            Product.objects.create(restorant_id=rest_Code,category_id=category,name=name,product_Img=product_Img,price=price,pro_contents=pro_contents)
     else: 
         form = ProductForm(rest_Code)  
 
     return render(request, 'productadd.html',context)
+@csrf_exempt
+@login_required(login_url = "/")
+def categoryAdd(request,rest_Code):
+    form = CategoryForm(data=request.POST,files=request.FILES)  
+
+    rest_Code = request.user.account.restorant_id
+    context = {
+        'form': form,
+    } 
+    if request.method == "POST":
+        if form.is_valid :
+            name = request.POST['name']
+            cat_img = request.FILES.get('cat_img')
+            Category.objects.create(restorant_id=rest_Code,name=name,cat_img=cat_img)
+    else: 
+        form = CategoryForm(rest_Code)  
+
+    return render(request, 'categoryadd.html',context)
 @login_required(login_url = "/")
 def home(request):
     rest_Code = request.user.account.restorant_id
@@ -76,9 +95,10 @@ def catList(request):
     rest_Code = request.user.account.restorant_id
     models = Category.objects.filter(restorant_id=rest_Code)
     context = {
-        "models":models
+        "models":models,
+        "rest_code" : rest_Code
     } 
-    return render(request,"list.html",context)
+    return render(request,"cat_list.html",context)
 @login_required(login_url = "/")
 def deleteCategory(request,cat_Code):
     deleteCategory = get_object_or_404(Category,cat_Code = cat_Code)
@@ -101,6 +121,21 @@ def homes(request,cat_Code,id):
     rest_Code = request.user.account.restorant_id
     models = Product.objects.filter(category_id=id)
     context = {
-        "models":models
+        "models":models,
+        "rest_code" : rest_Code
     } 
     return render(request,"productList.html",context)
+@login_required(login_url = "/")
+def productlistpage(request):
+    rest_Code = request.user.account.restorant_id
+    models = Category.objects.filter(restorant_id=rest_Code)
+    context = {
+        "models":models
+    } 
+    return render(request,"productlistpage.html",context)
+@login_required(login_url = "/")
+def productDelete(request,id):
+    productDelete = get_object_or_404(Product,id = id)
+    productDelete.delete()
+    messages.success(request,"Başarıyla Silindi.")
+    return redirect("catlist")

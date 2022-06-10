@@ -1,0 +1,24 @@
+{% extends "leyaut.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block body %}
+<div class="container">
+    <form method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label class="form-label">Ürün İsmi</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Ürün İsmi" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Ürün Resmi</label>
+            <br>
+            <input required type="file" id="cat_img" name="cat_img">
+        </div>
+
+
+
+        <div class="modal-footer d-block">
+            <button type="submit" value="submit" class="btn btn-warning float-end">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock body %}

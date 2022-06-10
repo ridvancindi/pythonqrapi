@@ -5,8 +5,7 @@ import string
 from unicodedata import category
 from django.db import models
 from django.contrib.auth.models import User
-
-from smart_selects.db_fields import ChainedForeignKey
+from smart_selects.db_fields import ChainedForeignKey 
 def deneme():
     allowed_chars = ''.join((string.ascii_letters))
     unique_id = ''.join(random.choice(allowed_chars) for _ in range(32))
@@ -14,9 +13,10 @@ def deneme():
 def rest_file_name(instance, filename):
     return '/'.join(filter(None, ("Image",instance.rest_Code, filename)))
 def cat_file_name(instance, filename):
-    return '/'.join(filter(None, ("Image",instance.restorant_id,instance.cat_Code ,filename)))
+    return '/'.join(filter(None, ("Image",instance.restorant_id,instance.name,"Cat Logo "+filename)))
 def pro_file_name(instance, filename):
-    return '/'.join(filter(None, ("Image",instance.restorant_id,str(instance.category_id) ,filename)))
+    deneme = list(Category.objects.filter(id = instance.category_id).only('name')[:1])[0]
+    return '/'.join(filter(None, ("Image",instance.restorant_id ,str(deneme),"Product Logo "+filename)))
 class Restorant(models.Model):
     rest_name = models.CharField(max_length=100)
     rest_createDate = models.DateField()
@@ -35,6 +35,13 @@ class Category(models.Model):
     cat_Code =  models.CharField(max_length = 12,blank=True,editable=False,default=deneme,unique=True)
     def __str__(self):
         return self.name
+    def delete(self, *args, **kwargs):
+        # You have to prepare what you need before delete the model
+        storage, path = self.cat_img.storage, self.cat_img.path
+        # Delete the model before the file
+        super(Category, self).delete(*args, **kwargs)
+        # Delete the file after the model
+        storage.delete(path)
 class Product(models.Model):
     restorant = models.ForeignKey(Restorant, to_field="rest_Code",on_delete=models.CASCADE)
     category = ChainedForeignKey(
@@ -52,7 +59,9 @@ class Product(models.Model):
     pro_contents = models.TextField()
     discount_price = models.DecimalField(decimal_places=2, max_digits=10,default=None, blank=True, null=True)
     def delete(self, using=None, keep_parents=False):
-        self.product_Img.storage.delete(self.product_Img.name)
+        print(self.song.name)
+        self.song.storage.delete(self.song.name)
+        self.product_Img.storage.delete(self.song.name)
         super().delete()
     def __str__(self):
         return self.name

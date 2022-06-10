@@ -1,5 +1,13 @@
 {% extends "leyaut.html" %}
 {% block body %}
+<div class="container">
+  <div
+    class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
+    <h3 class="fw-bold mb-0">Categorie List</h3>
+    <a href="/categoryadd/{{rest_code}}" class="btn btn-primary py-2 px-5 btn-set-task w-sm-100"><i
+        class="icofont-plus-circle me-2 fs-6"></i> Add Categories</a>
+  </div>
+</div>
 {% if models %}
 <style>
   .modal-footer {
@@ -26,16 +34,6 @@
 <div class="container">
   <div class="body d-flex py-3">
     <div class="container-xxl">
-      <div class="row align-items-center">
-        <div class="border-0 mb-4">
-          <div
-            class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-            <h3 class="fw-bold mb-0">Categorie List</h3>
-            <a class="btn btn-primary py-2 px-5 btn-set-task w-sm-100"><i class="icofont-plus-circle me-2 fs-6"></i> Add
-              Categories</a>
-          </div>
-        </div>
-      </div> <!-- Row end  -->
       <div class="row g-3 mb-3">
         <div class="col-12">
           <div class="card">
@@ -48,54 +46,35 @@
                       style="width: 100%;" role="grid" aria-describedby="myDataTable_info">
                       <thead>
                         <tr role="row">
-                          <th class="dis"
-                            style="width: 91.2px;">Id</th>
-                          <th 
-                            style="width: 244.2px;">Categorie
+                          <th class="dis" style="width: 91.2px;">Id</th>
+                          <th style="width: 244.2px;">Categorie
                           </th>
                           <th class="dis" style="width: 244.2px;">
                             Date
                           </th>
-                          <th
-                            style="width: 140.2px;">Status</th>
+                          <th style="width: 140.2px;">Status</th>
                           <th style="width: 168.2px;">
                             Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         {% for model in models %}
-                        <tr role="button" class="even" onclick="window.location.href = '/product/{{user.account.restorant_id}}/{{model.id}}';">
-                          <td tabindex="0" class="dis"><strong>#0002</strong></td>
+                        <tr role="button" class="even"
+                          onclick="window.location.href = '/product/{{user.account.restorant_id}}/{{model.id}}';">
+                          <td tabindex="0" class="dis"><strong>#{{model.id}}</strong></td>
                           <td>{{model.name}}</td>
                           <td class=" dt-body-right dis">January 14, 2021</td>
-                          <td><span class="badge bg-warning">Scheduled</span></td>
+                          <td><img src="{{model.cat_img}}" width="25%" alt="" srcset=""></td>
                           <td>
                             <div class="btn-group">
-                              <a href="" style="padding: 2px 6px 2px!important;" class="btn btn-primary"><i
-                                  class="uil uil-pen"></i></a>
-                              <a data-bs-toggle="modal" data-bs-target="#delcat" style="padding: 2px 6px 2px!important;"
+                              <a href="/edit/{{model.cat_Code}}" style="padding: 2px 6px 2px!important;"
+                                class="btn btn-primary"><i class="uil uil-pen"></i></a>
+                              <a href="/delete/{{model.cat_Code}}" style="padding: 2px 6px 2px!important;"
                                 class="btn btn-danger"><i class="uil uil-trash-alt"></i></a>
                             </div>
                           </td>
                         </tr>
-                        <div class="modal fade" id="delcat">
-                          <div class="modal-dialog modal-confirm">
-                            <div class="modal-content">
-                              <div class="modal-header pb-0">
-                                <i style="font-size: 5.5em; color: red;"
-                                  class="uil uil-exclamation-octagon text-center"></i>
-                              </div>
-                              <div class="modal-body pt-0 text-center">
-                                <h4>Emin Misiniz ?</h4>
-                                <p>Silmek İstediğine Eminmisin</p>
-                              </div>
-                              <div class="modal-footer">
-                                <a href="/delete/{{model.cat_Code}}" type="button" class="btn btn-primary">Onayla</a>
-                                <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                        
                         {% endfor %}
                       </tbody>
                     </table>
